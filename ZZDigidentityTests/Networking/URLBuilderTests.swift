@@ -33,7 +33,21 @@ class URLBuilderTests: XCTestCase {
         XCTAssertEqual(url?.port, 123)
     }
 
-    func test_itemsAfter() {
+    func test_itemsAfter_withoutItemId() {
+        // Given
+        let itemId: String? = nil
+
+        // When
+        let url = sut.itemsAfter(itemId: itemId)
+
+        // Then
+        XCTAssertNotNil(url)
+        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsComponent) ?? false)
+        XCTAssertFalse(url?.absoluteString.contains("?") ?? true)
+        XCTAssertFalse(url?.absoluteString.contains(RequestParameters.Items.afterParameterName) ?? true)
+    }
+
+    func test_itemsAfter_itemId() {
         // Given
         let itemId = "item123"
 

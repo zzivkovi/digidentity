@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var navigationController = UINavigationController()
+    var dependencies = Dependencies()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 
         // Initial view controller
-        let catalogueController = CatalogueScreenViewController()
+        let catalogueController = CatalogueScreenViewController.create(with: self.dependencies)
         self.navigationController = UINavigationController(rootViewController: catalogueController)
         navigationController.isNavigationBarHidden = true
         self.window?.rootViewController = navigationController

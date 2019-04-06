@@ -145,9 +145,9 @@
 		8D1B84D32258DACF00B34569 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				8D1B84DA22590CF700B34569 /* URLBuilderTests.swift */,
 				8D1B84D42258DAF800B34569 /* URLSessionMock.swift */,
 				8D1B84D62258DDEB00B34569 /* NetworkingTests.swift */,
-				8D1B84DA22590CF700B34569 /* URLBuilderTests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";

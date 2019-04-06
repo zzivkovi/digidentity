@@ -25,8 +25,13 @@ struct URLBuilder {
         self.baseUrl = baseUrl
     }
 
-    func itemsAfter(itemId: String) -> URL? {
-        let parameters = [RequestParameters.Items.afterParameterName: itemId]
+    func itemsAfter(itemId: String?) -> URL? {
+        let parameters: [String: String]?
+        if let itemId = itemId {
+            parameters = [RequestParameters.Items.afterParameterName: itemId]
+        } else {
+            parameters = nil
+        }
         return self.url(with: RequestParameters.Items.itemsComponent, parameters: parameters)
     }
 
@@ -35,9 +40,11 @@ struct URLBuilder {
         return self.url(with: RequestParameters.Items.itemsComponent, parameters: parameters)
     }
 
-    private func url(with subPath: String, parameters: [String: String]) -> URL? {
+    private func url(with subPath: String, parameters: [String: String]?) -> URL? {
         var components = URLComponents(string: self.baseUrl + subPath)
-        components?.queryItems = parameters.compactMap { URLQueryItem(name: $0, value: $1) }
+        if let parameters = parameters {
+            components?.queryItems = parameters.compactMap { URLQueryItem(name: $0, value: $1) }
+        }
         return components?.url
     }
 }

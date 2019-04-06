@@ -8,7 +8,19 @@
 
 import UIKit
 
+protocol CatalogueDependencies {
+    var requestManager: RequestManagerType { get }
+}
+
 class CatalogueScreenViewController: UIViewController {
+
+    static func create(with dependencies: CatalogueDependencies) -> CatalogueScreenViewController {
+        let controller = CatalogueScreenViewController()
+        controller.requestManager = dependencies.requestManager
+        return controller
+    }
+
+    private var requestManager: RequestManagerType!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,19 +28,14 @@ class CatalogueScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func loadDataTapped() {
-        print("Load data")
+        self.requestManager.getItems(after: nil) { (result) in
+            switch result {
+            case .success(let items):
+                print("Success: \(items)")
+            case .failure(_):
+                print("Failed")
+            }
+        }
     }
-
 }

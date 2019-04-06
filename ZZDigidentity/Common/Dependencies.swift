@@ -24,3 +24,7 @@ struct Dependencies {
         self.requestManager = RequestManager(networkingManager: self.networkManager, urlBuilder: self.urlBuilder)
     }
 }
+
+extension Dependencies: CatalogueDependencies {
+    // Implemented in class body
+}
