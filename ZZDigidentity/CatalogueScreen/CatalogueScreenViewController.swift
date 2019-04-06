@@ -33,8 +33,8 @@ class CatalogueScreenViewController: UIViewController {
             switch result {
             case .success(let items):
                 print("Success: \(items)")
-            case .failure(_):
-                print("Failed")
+            case .failure(let error):
+                print("Failed: \(error)")
             }
         }
     }

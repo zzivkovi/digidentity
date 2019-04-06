@@ -23,28 +23,40 @@ struct NetworkManager {
 extension NetworkManager: NetworkManagerType {
     func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void) {
         let task = self.session.dataTask(with: url) { data, response, error in
-            let result: Result<Data>
 
-            if let error = error {
-                // Error
-                result = .failure(NetworkError.general(error))
-            } else if let data = data {
-                // Data
-                result = .success(data)
-            } else {
-                // Missing data
-                let responseCode: Int
-                if let response = response as? HTTPURLResponse {
-                    responseCode = response.statusCode
-                } else {
-                    responseCode = -1
-                }
-                result = .failure(NetworkError.invalidResponse(responseCode))
+            // Check for valid status code
+            if let error = self.checkResponseForValidity(response) {
+                completionHandler(.failure(error))
+                return
             }
 
-            completionHandler(result)
+            // Must have data
+            guard let data = data else {
+                let resultError: Error
+                if let error = error {
+                    resultError = NetworkError.general(error)
+                } else {
+                    let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+                    resultError = NetworkError.missingData(statusCode)
+                }
+                completionHandler(.failure(resultError))
+                return
+            }
+
+            // Return data
+            completionHandler(.success(data))
         }
 
         task.resume()
+    }
+}
+
+extension NetworkManager {
+    private func checkResponseForValidity(_ response: URLResponse?) -> Error? {
+        let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+        guard 200..<300 ~= statusCode else {
+            return NetworkError.httpError(statusCode)
+        }
+        return nil
     }
 }

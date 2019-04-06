@@ -60,7 +60,33 @@ class NetworkingTests: XCTestCase {
             case .success(_):
                 XCTFail()
             case .failure(let error):
-                if case NetworkError.invalidResponse(let code) = error {
+                if case NetworkError.httpError(let code) = error {
+                    expectation.fulfill()
+                    XCTAssertEqual(code, statusCode)
+                } else {
+                    XCTFail()
+                }
+            }
+        }
+
+        // Then
+        wait(for: [expectation], timeout: 1)
+    }
+
+    func test_failure_onHttpResponseCode() {
+        // Given
+        let statusCode = 401
+        session.response = HTTPURLResponse(url: URL(string: "https://dummy")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        session.data = "Dummy data".data(using: .utf8)
+        let expectation = XCTestExpectation(description: "HTTP status code outside 200 range")
+
+        // When
+        networkManager.loadData(from: URL(string: "https://test")!) { (result) in
+            switch result {
+            case .success(_):
+                XCTFail()
+            case .failure(let error):
+                if case NetworkError.httpError(let code) = error {
                     expectation.fulfill()
                     XCTAssertEqual(code, statusCode)
                 } else {
