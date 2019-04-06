@@ -13,10 +13,13 @@ protocol RequestMangerType {
 }
 
 struct RequestManager {
-    let networkingManager: NetworkManagerType
 
-    init(networkingManager: NetworkManagerType) {
+    let networkingManager: NetworkManagerType
+    let urlBuilder: URLBuilder
+
+    init(networkingManager: NetworkManagerType, urlBuilder: URLBuilder = URLBuilder()) {
         self.networkingManager = networkingManager
+        self.urlBuilder = urlBuilder
     }
 }
 
