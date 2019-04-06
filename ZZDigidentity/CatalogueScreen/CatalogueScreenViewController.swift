@@ -27,4 +27,8 @@ class CatalogueScreenViewController: UIViewController {
     }
     */
 
+    @IBAction func loadDataTapped() {
+        print("Load data")
+    }
+
 }

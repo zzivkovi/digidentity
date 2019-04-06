@@ -13,6 +13,8 @@
 		8D1B84B92258AD5300B34569 /* ZZDigidentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84B82258AD5300B34569 /* ZZDigidentityTests.swift */; };
 		8D1B84C62258B8BD00B34569 /* CatalogueScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */; };
 		8D1B84C72258B8BD00B34569 /* CatalogueScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B84C52258B8BD00B34569 /* CatalogueScreenViewController.xib */; };
+		8D1B84CB2258BF4800B34569 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84CA2258BF4800B34569 /* NetworkManager.swift */; };
+		8D1B84CE2258D4AF00B34569 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84CD2258D4AF00B34569 /* RequestManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		8D1B84BA2258AD5300B34569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueScreenViewController.swift; sourceTree = "<group>"; };
 		8D1B84C52258B8BD00B34569 /* CatalogueScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogueScreenViewController.xib; sourceTree = "<group>"; };
+		8D1B84CA2258BF4800B34569 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		8D1B84CD2258D4AF00B34569 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		8D1B84A22258AD5100B34569 /* ZZDigidentity */ = {
 			isa = PBXGroup;
 			children = (
+				8D1B84C82258BF2300B34569 /* Data Management */,
 				8D1B84C32258B87200B34569 /* CatalogueScreen */,
 				8D1B84A32258AD5100B34569 /* AppDelegate.swift */,
 				8D1B84AA2258AD5300B34569 /* Assets.xcassets */,
@@ -102,6 +107,23 @@
 				8D1B84C52258B8BD00B34569 /* CatalogueScreenViewController.xib */,
 			);
 			path = CatalogueScreen;
+			sourceTree = "<group>";
+		};
+		8D1B84C82258BF2300B34569 /* Data Management */ = {
+			isa = PBXGroup;
+			children = (
+				8D1B84C92258BF2D00B34569 /* Networking */,
+			);
+			path = "Data Management";
+			sourceTree = "<group>";
+		};
+		8D1B84C92258BF2D00B34569 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8D1B84CA2258BF4800B34569 /* NetworkManager.swift */,
+				8D1B84CD2258D4AF00B34569 /* RequestManager.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,8 +227,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1B84CB2258BF4800B34569 /* NetworkManager.swift in Sources */,
 				8D1B84C62258B8BD00B34569 /* CatalogueScreenViewController.swift in Sources */,
 				8D1B84A42258AD5100B34569 /* AppDelegate.swift in Sources */,
+				8D1B84CE2258D4AF00B34569 /* RequestManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
