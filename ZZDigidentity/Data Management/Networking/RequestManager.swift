@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol RequestMangerType {
+protocol RequestManagerType {
     func getItems(before itemId: String, completionHandler: @escaping (Result<[String]>) -> Void)
 }
 
@@ -23,7 +23,7 @@ struct RequestManager {
     }
 }
 
-extension RequestManager: RequestMangerType {
+extension RequestManager: RequestManagerType {
     func getItems(before itemId: String, completionHandler: @escaping (Result<[String]>) -> Void) {
         guard let url = self.urlBuilder.itemsBefore(itemId: itemId) else {
             completionHandler(.failure(NetworkError.invalidUrl))
