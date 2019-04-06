@@ -33,13 +33,12 @@ class NetworkingTests: XCTestCase {
         // When
         networkManager.loadData(from: URL(string: "https://test")!) { (result) in
             switch result {
-            case .data(_):
+            case .success(_):
                 XCTFail()
             case .failure(let error):
-                switch error {
-                case .general(_):
+                if case NetworkError.general(_) = error {
                     expectation.fulfill()
-                default:
+                } else {
                     XCTFail()
                 }
             }
@@ -58,14 +57,13 @@ class NetworkingTests: XCTestCase {
         // When
         networkManager.loadData(from: URL(string: "https://test")!) { (result) in
             switch result {
-            case .data(_):
+            case .success(_):
                 XCTFail()
             case .failure(let error):
-                switch error {
-                case .invalidResponse(let code):
+                if case NetworkError.invalidResponse(let code) = error {
                     expectation.fulfill()
                     XCTAssertEqual(code, statusCode)
-                default:
+                } else {
                     XCTFail()
                 }
             }
@@ -84,7 +82,7 @@ class NetworkingTests: XCTestCase {
         // When & then
         self.networkManager.loadData(from: URL(string: "https://test")!) { (result) in
             switch result {
-            case .data(let data):
+            case .success(let data):
                 expectation.fulfill()
                 XCTAssertEqual(String(data: data, encoding: .utf8), dummyString)
             case .failure(_):

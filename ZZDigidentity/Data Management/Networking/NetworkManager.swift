@@ -8,13 +8,8 @@
 
 import Foundation
 
-enum NetworkResult {
-    case data(Data)
-    case failure(NetworkError)
-}
-
 protocol NetworkManagerType {
-    func loadData(from url: URL, completionHandler: @escaping (NetworkResult) -> Void)
+    func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void)
 }
 
 struct NetworkManager {
@@ -26,16 +21,16 @@ struct NetworkManager {
 }
 
 extension NetworkManager: NetworkManagerType {
-    func loadData(from url: URL, completionHandler: @escaping (NetworkResult) -> Void) {
+    func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void) {
         let task = self.session.dataTask(with: url) { data, response, error in
-            let result: NetworkResult
+            let result: Result<Data>
 
             if let error = error {
                 // Error
                 result = .failure(NetworkError.general(error))
             } else if let data = data {
                 // Data
-                result = .data(data)
+                result = .success(data)
             } else {
                 // Missing data
                 let responseCode: Int

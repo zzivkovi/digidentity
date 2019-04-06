@@ -11,4 +11,10 @@ import Foundation
 enum NetworkError: Error {
     case general(Error)
     case invalidResponse(Int)
+    case invalidUrl
+}
+
+enum Result<T> {
+    case success(T)
+    case failure(Error)
 }

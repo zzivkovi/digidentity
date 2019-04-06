@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RequestMangerType {
-
+    func getItems(before itemId: String, completionHandler: @escaping (Result<[String]>) -> Void)
 }
 
 struct RequestManager {
@@ -23,6 +23,27 @@ struct RequestManager {
     }
 }
 
-extension RequestMangerType {
+extension RequestManager: RequestMangerType {
+    func getItems(before itemId: String, completionHandler: @escaping (Result<[String]>) -> Void) {
+        guard let url = self.urlBuilder.itemsBefore(itemId: itemId) else {
+            completionHandler(.failure(NetworkError.invalidUrl))
+            return
+        }
 
+        self.networkingManager.loadData(from: url) { (result) in
+            switch result {
+            case .success(let data):
+                let items = self.parseItems(data)
+                completionHandler(.success(items))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+}
+
+extension RequestManager {
+    private func parseItems(_ data: Data) -> [String] {
+        return []
+    }
 }
