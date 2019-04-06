@@ -11,6 +11,8 @@
 		8D1B84AB2258AD5300B34569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B84AA2258AD5300B34569 /* Assets.xcassets */; };
 		8D1B84AE2258AD5300B34569 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B84AC2258AD5300B34569 /* LaunchScreen.storyboard */; };
 		8D1B84B92258AD5300B34569 /* ZZDigidentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84B82258AD5300B34569 /* ZZDigidentityTests.swift */; };
+		8D1B84C62258B8BD00B34569 /* CatalogueScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */; };
+		8D1B84C72258B8BD00B34569 /* CatalogueScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B84C52258B8BD00B34569 /* CatalogueScreenViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,8 @@
 		8D1B84B42258AD5300B34569 /* ZZDigidentityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZZDigidentityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1B84B82258AD5300B34569 /* ZZDigidentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZDigidentityTests.swift; sourceTree = "<group>"; };
 		8D1B84BA2258AD5300B34569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueScreenViewController.swift; sourceTree = "<group>"; };
+		8D1B84C52258B8BD00B34569 /* CatalogueScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogueScreenViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,7 @@
 		8D1B84A22258AD5100B34569 /* ZZDigidentity */ = {
 			isa = PBXGroup;
 			children = (
+				8D1B84C32258B87200B34569 /* CatalogueScreen */,
 				8D1B84A32258AD5100B34569 /* AppDelegate.swift */,
 				8D1B84AA2258AD5300B34569 /* Assets.xcassets */,
 				8D1B84AC2258AD5300B34569 /* LaunchScreen.storyboard */,
@@ -88,6 +93,15 @@
 				8D1B84BA2258AD5300B34569 /* Info.plist */,
 			);
 			path = ZZDigidentityTests;
+			sourceTree = "<group>";
+		};
+		8D1B84C32258B87200B34569 /* CatalogueScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */,
+				8D1B84C52258B8BD00B34569 /* CatalogueScreenViewController.xib */,
+			);
+			path = CatalogueScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +187,7 @@
 			files = (
 				8D1B84AE2258AD5300B34569 /* LaunchScreen.storyboard in Resources */,
 				8D1B84AB2258AD5300B34569 /* Assets.xcassets in Resources */,
+				8D1B84C72258B8BD00B34569 /* CatalogueScreenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1B84C62258B8BD00B34569 /* CatalogueScreenViewController.swift in Sources */,
 				8D1B84A42258AD5100B34569 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
