@@ -180,5 +180,4 @@ class RequestManagerTests: XCTestCase {
         // Then
         wait(for: [expectation], timeout: 1)
     }
-
 }

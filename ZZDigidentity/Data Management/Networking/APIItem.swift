@@ -15,7 +15,7 @@ struct APIItem: Equatable {
     let imageString: String
 
     func image() -> UIImage? {
-        guard let data = self.imageString.data(using: .utf8) else {
+        guard let encodedData = self.imageString.data(using: .utf8), let data = Data(base64Encoded: encodedData) else {
             return nil
         }
         let image = UIImage(data: data)

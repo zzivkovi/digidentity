@@ -11,13 +11,22 @@ import UIKit
 class CatalogueScreenViewController: UIViewController {
 
     static func create() -> CatalogueScreenViewController {
-        let controller = CatalogueScreenViewController()
+        guard let controller = UIStoryboard(name: "CatalogueScreenViewController", bundle: nil).instantiateViewController(withIdentifier: "CatalogueScreenViewController") as? CatalogueScreenViewController else {
+            assertionFailure("Mising controller")
+            return CatalogueScreenViewController()
+        }
+        controller.tableViewDelegate = CatalogueScreenTableViewDelegate(controller: controller, requestManager: Dependencies.shared.requestManager)
         return controller
     }
+
+    @IBOutlet var tableView: UITableView!
+
+    private var tableViewDelegate: CatalogueScreenTableViewDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.tableViewDelegate.tableView = self.tableView
     }
 }

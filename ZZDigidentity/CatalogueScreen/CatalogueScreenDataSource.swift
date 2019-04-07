@@ -147,7 +147,7 @@ extension CatalogueScreenDataSource {
 
     private func handleError(_ error: Error) {
         self.handleErrorResult()
-        self.delegate?.receivedError(error: error)
+        self.reportErrorToDelegate(error)
     }
 
     private func canLoad(item: ItemState?) -> String? {
@@ -166,7 +166,7 @@ extension CatalogueScreenDataSource {
         // Replace .notLoaded(_) with .loading(_)
         if let index = self.items.index(where: { $0 == item }) {
             items[index] = .loading(itemId: itemId)
-            self.delegate?.itemsUpdated(in: self)
+            self.reportSuccessToDelegate()
         }
 
         return itemId
@@ -188,6 +188,7 @@ extension CatalogueScreenDataSource {
         self.items = items.map { .item($0) }
         self.items.insert(.notLoaded(itemId: first.id), at: 0)
         self.items.append(.notLoaded(itemId: last.id))
+        self.reportSuccessToDelegate()
     }
 
     private func handleErrorResult() {
@@ -198,7 +199,7 @@ extension CatalogueScreenDataSource {
             self.items.removeLast()
             self.items.append(.notLoaded(itemId: itemId))
         }
-        self.delegate?.itemsUpdated(in: self)
+        self.reportSuccessToDelegate()
     }
 
     private func handleEmptyResult() {
@@ -209,6 +210,18 @@ extension CatalogueScreenDataSource {
             self.items.removeLast()
             self.items.append(.end)
         }
-        self.delegate?.itemsUpdated(in: self)
+        self.reportSuccessToDelegate()
+    }
+
+    private func reportSuccessToDelegate() {
+        DispatchQueue.main.async {
+            self.delegate?.itemsUpdated(in: self)
+        }
+    }
+
+    private func reportErrorToDelegate(_ error: Error) {
+        DispatchQueue.main.async {
+            self.delegate?.receivedError(error: error)
+        }
     }
 }
