@@ -23,6 +23,9 @@
 		8D1B84DE2259189A00B34569 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84DD2259189A00B34569 /* Dependencies.swift */; };
 		8D84443A2259E62900BEA6D1 /* NetworkAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8444392259E62900BEA6D1 /* NetworkAuthenticationManager.swift */; };
 		8D84443C2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84443B2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift */; };
+		8D844440225A01EF00BEA6D1 /* TLSValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D84443F225A01EF00BEA6D1 /* TLSValidator.m */; };
+		8D844443225A03D600BEA6D1 /* URLSessionCertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D844442225A03D600BEA6D1 /* URLSessionCertificateValidator.swift */; };
+		8D84444D225A129900BEA6D1 /* certificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8D84444C225A129900BEA6D1 /* certificate.cer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,11 @@
 		8D1B84DD2259189A00B34569 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		8D8444392259E62900BEA6D1 /* NetworkAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAuthenticationManager.swift; sourceTree = "<group>"; };
 		8D84443B2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAuthenticationManagerTests.swift; sourceTree = "<group>"; };
+		8D84443E225A01EF00BEA6D1 /* TLSValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLSValidator.h; sourceTree = "<group>"; };
+		8D84443F225A01EF00BEA6D1 /* TLSValidator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TLSValidator.m; sourceTree = "<group>"; };
+		8D844441225A02EE00BEA6D1 /* ZZDigidentity-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZDigidentity-Bridging-Header.h"; sourceTree = "<group>"; };
+		8D844442225A03D600BEA6D1 /* URLSessionCertificateValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionCertificateValidator.swift; sourceTree = "<group>"; };
+		8D84444C225A129900BEA6D1 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +110,7 @@
 				8D1B84C32258B87200B34569 /* CatalogueScreen */,
 				8D1B84A32258AD5100B34569 /* AppDelegate.swift */,
 				8D1B84AA2258AD5300B34569 /* Assets.xcassets */,
+				8D844444225A04B100BEA6D1 /* Resources */,
 				8D1B84AC2258AD5300B34569 /* LaunchScreen.storyboard */,
 				8D1B84AF2258AD5300B34569 /* Info.plist */,
 			);
@@ -138,6 +147,9 @@
 		8D1B84C92258BF2D00B34569 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				8D84443E225A01EF00BEA6D1 /* TLSValidator.h */,
+				8D84443F225A01EF00BEA6D1 /* TLSValidator.m */,
+				8D844442225A03D600BEA6D1 /* URLSessionCertificateValidator.swift */,
 				8D1B84D82259062400B34569 /* URLBuilder.swift */,
 				8D1B84D12258D72F00B34569 /* NetworkingObjects.swift */,
 				8D8444392259E62900BEA6D1 /* NetworkAuthenticationManager.swift */,
@@ -161,9 +173,26 @@
 		8D1B84DC2259187D00B34569 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8D844441225A02EE00BEA6D1 /* ZZDigidentity-Bridging-Header.h */,
 				8D1B84DD2259189A00B34569 /* Dependencies.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		8D844444225A04B100BEA6D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D844445225A04BA00BEA6D1 /* Pinned Certificates */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8D844445225A04BA00BEA6D1 /* Pinned Certificates */ = {
+			isa = PBXGroup;
+			children = (
+				8D84444C225A129900BEA6D1 /* certificate.cer */,
+			);
+			path = "Pinned Certificates";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +245,7 @@
 				TargetAttributes = {
 					8D1B849F2258AD5100B34569 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					8D1B84B32258AD5300B34569 = {
 						CreatedOnToolsVersion = 10.1;
@@ -249,6 +279,7 @@
 			files = (
 				8D1B84AE2258AD5300B34569 /* LaunchScreen.storyboard in Resources */,
 				8D1B84AB2258AD5300B34569 /* Assets.xcassets in Resources */,
+				8D84444D225A129900BEA6D1 /* certificate.cer in Resources */,
 				8D1B84C72258B8BD00B34569 /* CatalogueScreenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,9 +303,11 @@
 				8D1B84C62258B8BD00B34569 /* CatalogueScreenViewController.swift in Sources */,
 				8D84443A2259E62900BEA6D1 /* NetworkAuthenticationManager.swift in Sources */,
 				8D1B84A42258AD5100B34569 /* AppDelegate.swift in Sources */,
+				8D844443225A03D600BEA6D1 /* URLSessionCertificateValidator.swift in Sources */,
 				8D1B84CE2258D4AF00B34569 /* RequestManager.swift in Sources */,
 				8D1B84D22258D72F00B34569 /* NetworkingObjects.swift in Sources */,
 				8D1B84D92259062400B34569 /* URLBuilder.swift in Sources */,
+				8D844440225A01EF00BEA6D1 /* TLSValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65EXBPBN65;
 				INFOPLIST_FILE = ZZDigidentity/Info.plist;
@@ -441,6 +475,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zz.digidentity.ZZDigidentity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZZDigidentity/Common/ZZDigidentity-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,6 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65EXBPBN65;
 				INFOPLIST_FILE = ZZDigidentity/Info.plist;
@@ -459,6 +496,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zz.digidentity.ZZDigidentity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZZDigidentity/Common/ZZDigidentity-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -18,11 +18,25 @@ struct RequestParameters {
     }
 }
 
+protocol URLBuilderType {
+    var domain: String { get }
+    func itemsAfter(itemId: String?) -> URL?
+    func itemsBefore(itemId: String) -> URL?
+}
+
 struct URLBuilder {
-    let baseUrl: String
+    private let baseUrl: String
 
     init(baseUrl: String = RequestParameters.stagingBaseUrl) {
         self.baseUrl = baseUrl
+    }
+}
+
+extension URLBuilder: URLBuilderType {
+
+    var domain: String {
+        let url = URL(string: self.baseUrl)
+        return url?.host ?? ""
     }
 
     func itemsAfter(itemId: String?) -> URL? {
@@ -39,6 +53,9 @@ struct URLBuilder {
         let parameters = [RequestParameters.Items.beforeParameterName: itemId]
         return self.url(with: RequestParameters.Items.itemsComponent, parameters: parameters)
     }
+}
+
+extension URLBuilder {
 
     private func url(with subPath: String, parameters: [String: String]?) -> URL? {
         var components = URLComponents(string: self.baseUrl + subPath)

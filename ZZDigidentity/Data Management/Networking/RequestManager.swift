@@ -16,9 +16,9 @@ protocol RequestManagerType {
 struct RequestManager {
 
     let networkingManager: NetworkManagerType
-    let urlBuilder: URLBuilder
+    let urlBuilder: URLBuilderType
 
-    init(networkingManager: NetworkManagerType, urlBuilder: URLBuilder = URLBuilder()) {
+    init(networkingManager: NetworkManagerType, urlBuilder: URLBuilderType = URLBuilder()) {
         self.networkingManager = networkingManager
         self.urlBuilder = urlBuilder
     }
