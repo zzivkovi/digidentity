@@ -26,7 +26,7 @@ extension NetworkManager: NetworkManagerType {
     func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void) {
 
         var request = URLRequest(url: url)
-        let headerPairs = self.authenticationManager.itemsRequestHeaderPairs
+        let headerPairs = self.authenticationManager.defaultRequestHeaderParis
         for key in headerPairs.keys {
             request.setValue(headerPairs[key], forHTTPHeaderField: key)
         }

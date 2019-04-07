@@ -57,7 +57,7 @@ class NetworkAuthenticationManagerMock: NetworkAuthenticationManagerType {
 
     var itemsRequestHeader: [String : String]?
 
-    var itemsRequestHeaderPairs: [String : String] {
+    var defaultRequestHeaderParis: [String : String] {
         return itemsRequestHeader ?? [:]
     }
 
