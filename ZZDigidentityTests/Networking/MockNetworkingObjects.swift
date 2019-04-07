@@ -6,7 +6,7 @@
 //  Copyright © 2019 Digidentity. All rights reserved.
 //
 
-import Foundation
+import XCTest
 @testable import ZZDigidentity
 
 // MARK:- Error
@@ -75,7 +75,7 @@ class URLSessionMock: URLSession {
 class NetworkAuthenticationManagerMock: NetworkAuthenticationManagerType {
     var itemsRequestHeader: [String : String]?
 
-    var defaultRequestHeaderParis: [String : String] {
+    var defaultRequestHeaderPairs: [String : String] {
         return itemsRequestHeader ?? [:]
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol NetworkAuthenticationManagerType {
-    var defaultRequestHeaderParis: [String: String] { get }
+    var defaultRequestHeaderPairs: [String: String] { get }
 }
 
 private enum RequestTypes: String {
@@ -26,7 +26,7 @@ struct NetworkAuthenticationManager {
 }
 
 extension NetworkAuthenticationManager: NetworkAuthenticationManagerType {
-    var defaultRequestHeaderParis: [String : String] {
+    var defaultRequestHeaderPairs: [String : String] {
         return self.headerValues[RequestTypes.all] ?? [:]
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct APIItem {
+struct APIItem: Equatable {
     let id: String
     let text: String
     let confidence: Float

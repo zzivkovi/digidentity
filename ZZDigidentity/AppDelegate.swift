@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 
         // Initial view controller
-        let catalogueController = CatalogueScreenViewController.create(with: self.dependencies)
+        let catalogueController = CatalogueScreenViewController.create()
         self.navigationController = UINavigationController(rootViewController: catalogueController)
         navigationController.isNavigationBarHidden = true
         self.window?.rootViewController = navigationController

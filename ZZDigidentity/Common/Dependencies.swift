@@ -29,6 +29,6 @@ struct Dependencies {
     }
 }
 
-extension Dependencies: CatalogueDependencies {
+extension Dependencies: CatalogueScreenDataSourceDependencies {
     // Implemented in class body
 }

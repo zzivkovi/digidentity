@@ -24,9 +24,9 @@ class NetworkAuthenticationManagerTests: XCTestCase {
         let sut = NetworkAuthenticationManager()
 
         // When
-        let itemsRequestHeaderParis = sut.defaultRequestHeaderParis
+        let itemsRequestHeaderPairs = sut.defaultRequestHeaderPairs
 
         // Then
-        XCTAssertEqual(itemsRequestHeaderParis.count, 3)
+        XCTAssertEqual(itemsRequestHeaderPairs.count, 1)
     }
 }

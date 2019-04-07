@@ -92,6 +92,27 @@ class RequestManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
 
+    func test_initialItems_correctData() {
+        // Given
+        let data = "[{\"img\": \"werwet\",\"text\": \"Hello world!\",\"confidence\": 0.7,\"_id\":\"123\"}]".data(using: .utf8) ?? Data()
+        networkManager.result = .success(data)
+        let expectation = XCTestExpectation(description: "Existing item")
+
+        // When
+        sut.getItems(after: nil) { (result) in
+            switch result {
+            case .success(let items):
+                expectation.fulfill()
+                XCTAssertEqual(items.count, 1)
+            default:
+                XCTFail()
+            }
+        }
+
+        // Then
+        wait(for: [expectation], timeout: 1)
+    }
+
 
     func test_itemsBefore_invalidUrl() {
         // Given
