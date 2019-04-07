@@ -26,6 +26,7 @@
 		8D844440225A01EF00BEA6D1 /* TLSValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D84443F225A01EF00BEA6D1 /* TLSValidator.m */; };
 		8D844443225A03D600BEA6D1 /* URLSessionCertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D844442225A03D600BEA6D1 /* URLSessionCertificateValidator.swift */; };
 		8D84444D225A129900BEA6D1 /* certificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8D84444C225A129900BEA6D1 /* certificate.cer */; };
+		8D84444F225A145E00BEA6D1 /* RequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84444E225A145E00BEA6D1 /* RequestManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		8D844441225A02EE00BEA6D1 /* ZZDigidentity-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZDigidentity-Bridging-Header.h"; sourceTree = "<group>"; };
 		8D844442225A03D600BEA6D1 /* URLSessionCertificateValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionCertificateValidator.swift; sourceTree = "<group>"; };
 		8D84444C225A129900BEA6D1 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
+		8D84444E225A145E00BEA6D1 /* RequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				8D1B84DA22590CF700B34569 /* URLBuilderTests.swift */,
 				8D84443B2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift */,
 				8D1B84D62258DDEB00B34569 /* NetworkingTests.swift */,
+				8D84444E225A145E00BEA6D1 /* RequestManagerTests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				8D1B84D72258DDEB00B34569 /* NetworkingTests.swift in Sources */,
 				8D1B84B92258AD5300B34569 /* ZZDigidentityTests.swift in Sources */,
 				8D84443C2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift in Sources */,
+				8D84444F225A145E00BEA6D1 /* RequestManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,25 @@ enum TestError: Error {
     case general
 }
 
+// MARK:- URLBuilder
+
+class URLBuilderMock: URLBuilderType {
+
+    var url: URL?
+
+    var domain: String {
+        return self.url?.host ?? ""
+    }
+
+    func itemsAfter(itemId: String?) -> URL? {
+        return self.url
+    }
+
+    func itemsBefore(itemId: String) -> URL? {
+        return self.url
+    }
+}
+
 // MARK:- URLSession mocks
 
 class URLSessionDataTaskMock: URLSessionDataTask {
@@ -54,12 +73,19 @@ class URLSessionMock: URLSession {
 // MARK:- NetworkAuthentication
 
 class NetworkAuthenticationManagerMock: NetworkAuthenticationManagerType {
-
     var itemsRequestHeader: [String : String]?
 
     var defaultRequestHeaderParis: [String : String] {
         return itemsRequestHeader ?? [:]
     }
+}
 
-    
+// MARK:- NetworkManager
+
+class NetworkManagerMock: NetworkManagerType {
+    var result: Result<Data>?
+
+    func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void) {
+        completionHandler(result ?? .failure(TestError.general))
+    }
 }
