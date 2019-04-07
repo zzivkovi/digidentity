@@ -10,6 +10,15 @@ import UIKit
 
 class LoaderCell: UITableViewCell {
 
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
+    func animate() {
+        self.activityIndicator.color = .green
+        self.activityIndicator.startAnimating()
+    }
+
+    func stopAnimating() {
+        self.activityIndicator.color = .black
+        self.activityIndicator.stopAnimating()
+    }
 }

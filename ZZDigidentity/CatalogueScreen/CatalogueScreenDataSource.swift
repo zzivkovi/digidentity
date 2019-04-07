@@ -49,25 +49,26 @@ protocol CatalogueScreenDataSourceType {
     var delegate: CatalogueScreenDataSourceDelegate? { get set }
 }
 
-// MARK:- Dependencies
-
-protocol CatalogueScreenDataSourceDependencies {
-    var requestManager: RequestManagerType { get }
-}
-
 // MARK:- Implementation
 
 class CatalogueScreenDataSource {
 
     private var isLoading: Bool = false
     let requestManager: RequestManagerType
+    let itemsCache: ItemsCacheType
 
     var delegate: CatalogueScreenDataSourceDelegate?
     var items = [ItemState]()
 
-    init(requestManager: RequestManagerType) {
+    init(requestManager: RequestManagerType, itemsCache: ItemsCacheType) {
         self.requestManager = requestManager
-        self.loadInitialItems()
+        self.itemsCache = itemsCache
+
+        if let items = itemsCache.loadItems() {
+            self.loadedItems(items)
+        } else {
+            self.loadInitialItems()
+        }
     }
 }
 
@@ -95,6 +96,7 @@ extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
             case .failure(let error):
                 strongSelf.handleError(error)
             case .success(let items):
+                strongSelf.cacheLoadedItems(items)
                 strongSelf.loadedItems(items)
             }
         }
@@ -120,6 +122,7 @@ extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
             case .failure(let error):
                 strongSelf.handleError(error)
             case .success(let items):
+                strongSelf.cacheLoadedItems(items)
                 strongSelf.loadedItems(items)
             }
         }
@@ -140,6 +143,7 @@ extension CatalogueScreenDataSource {
             case .failure(let error):
                 strongSelf.handleError(error)
             case .success(let items):
+                strongSelf.cacheLoadedItems(items)
                 strongSelf.loadedItems(items)
             }
         }
@@ -170,6 +174,10 @@ extension CatalogueScreenDataSource {
         }
 
         return itemId
+    }
+
+    private func cacheLoadedItems(_ items: [APIItem]) {
+        self.itemsCache.cacheItems(items)
     }
 
     private func loadedItems(_ items: [APIItem]) {

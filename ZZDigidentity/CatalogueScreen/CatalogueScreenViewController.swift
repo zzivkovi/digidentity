@@ -15,7 +15,9 @@ class CatalogueScreenViewController: UIViewController {
             assertionFailure("Mising controller")
             return CatalogueScreenViewController()
         }
-        controller.tableViewDelegate = CatalogueScreenTableViewDelegate(controller: controller, requestManager: Dependencies.shared.requestManager)
+        controller.tableViewDelegate = CatalogueScreenTableViewDelegate(controller: controller,
+                                                                        requestManager: Dependencies.shared.requestManager,
+                                                                        itemsCache: Dependencies.shared.itemsCache)
         return controller
     }
 

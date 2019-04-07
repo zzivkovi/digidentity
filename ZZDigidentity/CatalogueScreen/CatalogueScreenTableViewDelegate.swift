@@ -21,9 +21,9 @@ class CatalogueScreenTableViewDelegate: NSObject {
     var controller: UIViewController
     private var dataSource: CatalogueScreenDataSourceType
 
-    init(controller: UIViewController, requestManager: RequestManagerType) {
+    init(controller: UIViewController, requestManager: RequestManagerType, itemsCache: ItemsCacheType) {
         self.controller = controller
-        self.dataSource = CatalogueScreenDataSource(requestManager: requestManager)
+        self.dataSource = CatalogueScreenDataSource(requestManager: requestManager, itemsCache: itemsCache)
     }
 
     private func reloadData() {
@@ -52,12 +52,12 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
 
         case .loading(_):
             let loaderCell = tableView.dequeueReusableCell(withIdentifier: "LoaderCell") as? LoaderCell
-            loaderCell?.activityIndicator.startAnimating()
+            loaderCell?.animate()
             cell = loaderCell
 
         case .notLoaded(_):
             let loaderCell = tableView.dequeueReusableCell(withIdentifier: "LoaderCell") as? LoaderCell
-            loaderCell?.activityIndicator.stopAnimating()
+            loaderCell?.stopAnimating()
             cell = loaderCell
             
         case .end:

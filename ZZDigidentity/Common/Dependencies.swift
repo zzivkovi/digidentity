@@ -16,10 +16,12 @@ struct Dependencies {
     private let urlSession: URLSession
     private let networkAuthenticationManager: NetworkAuthenticationManagerType
     private let networkManager: NetworkManagerType
-    
+
+    let itemsCache: ItemsCacheType
     let requestManager: RequestManagerType
 
     init() {
+        self.itemsCache = ItemCache(password: "ifune98ffkdndjn9hu%$&")
         self.urlBuilder = URLBuilder()
         self.sessionValidator = URLSessionCertificateValidator(domain: self.urlBuilder.domain)
         self.urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: self.sessionValidator, delegateQueue: nil)
@@ -27,8 +29,4 @@ struct Dependencies {
         self.networkManager = NetworkManager(session: self.urlSession, authenticationManager: self.networkAuthenticationManager)
         self.requestManager = RequestManager(networkingManager: self.networkManager, urlBuilder: self.urlBuilder)
     }
-}
-
-extension Dependencies: CatalogueScreenDataSourceDependencies {
-    // Implemented in class body
 }
