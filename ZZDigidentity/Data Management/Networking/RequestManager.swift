@@ -9,8 +9,8 @@
 import Foundation
 
 protocol RequestManagerType {
-    func getItems(after itemId: String?, completionHandler: @escaping (Result<[String]>) -> Void)
-    func getItems(before itemId: String, completionHandler: @escaping (Result<[String]>) -> Void)
+    func getItems(after itemId: String?, completionHandler: @escaping (Result<[APIItem]>) -> Void)
+    func getItems(before itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void)
 }
 
 struct RequestManager {
@@ -25,7 +25,7 @@ struct RequestManager {
 }
 
 extension RequestManager: RequestManagerType {
-    func getItems(after itemId: String?, completionHandler: @escaping (Result<[String]>) -> Void) {
+    func getItems(after itemId: String?, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
         guard let url = self.urlBuilder.itemsAfter(itemId: itemId) else {
             completionHandler(.failure(NetworkError.invalidUrl))
             return
@@ -42,7 +42,7 @@ extension RequestManager: RequestManagerType {
         }
     }
 
-    func getItems(before itemId: String, completionHandler: @escaping (Result<[String]>) -> Void) {
+    func getItems(before itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
         guard let url = self.urlBuilder.itemsBefore(itemId: itemId) else {
             completionHandler(.failure(NetworkError.invalidUrl))
             return
@@ -61,8 +61,8 @@ extension RequestManager: RequestManagerType {
 }
 
 extension RequestManager {
-    private func parseItems(_ data: Data) -> [String] {
-        print("Items:\(String(data: data, encoding: .utf8) ?? "-")")
-        return []
+    private func parseItems(_ data: Data) -> [APIItem] {
+        let items = try? JSONDecoder().decode([APIItem].self, from: data)
+        return items ?? []
     }
 }

@@ -32,7 +32,7 @@ class CatalogueScreenViewController: UIViewController {
         self.requestManager.getItems(after: nil) { (result) in
             switch result {
             case .success(let items):
-                print("Success: \(items)")
+                print("Success: \(items.count)\n\(items)")
             case .failure(let error):
                 print("Failed: \(error)")
             }
