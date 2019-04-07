@@ -13,6 +13,7 @@ struct Dependencies {
 
     private let urlBuilder: URLBuilder
     private let urlSession: URLSession
+    private let networkAuthenticationManager: NetworkAuthenticationManagerType
     private let networkManager: NetworkManagerType
     
     let requestManager: RequestManagerType
@@ -20,7 +21,8 @@ struct Dependencies {
     init() {
         self.urlBuilder = URLBuilder()
         self.urlSession = URLSession.shared
-        self.networkManager = NetworkManager(session: self.urlSession)
+        self.networkAuthenticationManager = NetworkAuthenticationManager()
+        self.networkManager = NetworkManager(session: self.urlSession, authenticationManager: self.networkAuthenticationManager)
         self.requestManager = RequestManager(networkingManager: self.networkManager, urlBuilder: self.urlBuilder)
     }
 }

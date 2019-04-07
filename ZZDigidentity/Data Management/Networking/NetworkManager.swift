@@ -14,15 +14,30 @@ protocol NetworkManagerType {
 
 struct NetworkManager {
     let session: URLSession
+    let authenticationManager: NetworkAuthenticationManagerType
 
-    init(session: URLSession) {
+    init(session: URLSession, authenticationManager: NetworkAuthenticationManagerType) {
         self.session = session
+        self.authenticationManager = authenticationManager
     }
 }
 
 extension NetworkManager: NetworkManagerType {
     func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void) {
-        let task = self.session.dataTask(with: url) { data, response, error in
+
+        var request = URLRequest(url: url)
+        let headerPairs = self.authenticationManager.itemsRequestHeaderPairs
+        for key in headerPairs.keys {
+            request.setValue(headerPairs[key], forHTTPHeaderField: key)
+        }
+
+        let task = self.session.dataTask(with: request) { data, response, error in
+
+            // Check for error
+            if let error = error {
+                completionHandler(.failure(NetworkError.general(error)))
+                return
+            }
 
             // Check for valid status code
             if let error = self.checkResponseForValidity(response) {
@@ -32,13 +47,8 @@ extension NetworkManager: NetworkManagerType {
 
             // Must have data
             guard let data = data else {
-                let resultError: Error
-                if let error = error {
-                    resultError = NetworkError.general(error)
-                } else {
-                    let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
-                    resultError = NetworkError.missingData(statusCode)
-                }
+                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+                let resultError = NetworkError.missingData(statusCode)
                 completionHandler(.failure(resultError))
                 return
             }
@@ -46,7 +56,6 @@ extension NetworkManager: NetworkManagerType {
             // Return data
             completionHandler(.success(data))
         }
-
         task.resume()
     }
 }

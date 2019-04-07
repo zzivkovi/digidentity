@@ -7,10 +7,14 @@
 //
 
 import Foundation
+@testable import ZZDigidentity
 
+// MARK:- Error
 enum TestError: Error {
     case general
 }
+
+// MARK:- URLSession mocks
 
 class URLSessionDataTaskMock: URLSessionDataTask {
     private let closure: () -> Void
@@ -31,13 +35,31 @@ class URLSessionMock: URLSession {
     var response: URLResponse?
     var error: Error?
 
-    override func dataTask(with url: URL, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    var request: URLRequest?
+
+
+    override func dataTask(with request: URLRequest, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
         let data = self.data
         let response = self.response
         let error = self.error
+
+        self.request = request
 
         return URLSessionDataTaskMock {
             completionHandler(data, response, error)
         }
     }
+}
+
+// MARK:- NetworkAuthentication
+
+class NetworkAuthenticationManagerMock: NetworkAuthenticationManagerType {
+
+    var itemsRequestHeader: [String : String]?
+
+    var itemsRequestHeaderPairs: [String : String] {
+        return itemsRequestHeader ?? [:]
+    }
+
+    
 }
