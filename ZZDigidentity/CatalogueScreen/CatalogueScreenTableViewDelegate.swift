@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CatalogueScreenTableViewDelegateType {
+    var tableView: UITableView { get set }
+}
+
 class CatalogueScreenTableViewDelegate: NSObject {
     var tableView: UITableView = UITableView() {
         didSet {
@@ -15,19 +19,24 @@ class CatalogueScreenTableViewDelegate: NSObject {
 
             tableView.dataSource = self
             tableView.delegate = self
-            self.reloadData()
+            self.reloadTableData()
         }
     }
-    var controller: UIViewController
+
+    private var controller: UIViewController
     private var dataSource: CatalogueScreenDataSourceType
 
-    init(controller: UIViewController, requestManager: RequestManagerType, itemsCache: ItemsCacheType) {
+    init(controller: UIViewController, itemsDataSource: ItemsDataSourceType) {
         self.controller = controller
-        self.dataSource = CatalogueScreenDataSource(requestManager: requestManager, itemsCache: itemsCache)
+        self.dataSource = CatalogueScreenDataSource(itemsDataSource: itemsDataSource)
     }
 
-    private func reloadData() {
+    private func reloadTableData() {
         self.tableView.reloadData()
+    }
+
+    private func loadLaterData() {
+
     }
 }
 
@@ -71,16 +80,16 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
 extension CatalogueScreenTableViewDelegate: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == 0 {
-            self.dataSource.loadEarlierItems()
+            self.dataSource.loadNewerItems()
         } else if scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height {
-            self.dataSource.loadLaterItems()
+            self.dataSource.loadOlderItems()
         }
     }
 }
 
 extension CatalogueScreenTableViewDelegate: CatalogueScreenDataSourceDelegate {
     func itemsUpdated(in catalogueDataSource: CatalogueScreenDataSourceType) {
-        self.reloadData()
+        self.reloadTableData()
     }
 
     func receivedError(error: Error) {

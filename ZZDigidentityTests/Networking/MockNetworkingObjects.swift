@@ -17,18 +17,19 @@ enum TestError: Error {
 // MARK:- URLBuilder
 
 class URLBuilderMock: URLBuilderType {
-
+    
+    var domain: String = "https://test.domain"
     var url: URL?
 
-    var domain: String {
-        return self.url?.host ?? ""
-    }
-
-    func itemsAfter(itemId: String?) -> URL? {
+    func initialItems() -> URL? {
         return self.url
     }
 
-    func itemsBefore(itemId: String) -> URL? {
+    func itemsNewerThan(itemId: String) -> URL? {
+        return self.url
+    }
+
+    func itemsOlderThan(itemId: String) -> URL? {
         return self.url
     }
 }

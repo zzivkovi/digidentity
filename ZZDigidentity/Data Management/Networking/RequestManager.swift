@@ -9,8 +9,9 @@
 import Foundation
 
 protocol RequestManagerType {
-    func getItems(after itemId: String?, completionHandler: @escaping (Result<[APIItem]>) -> Void)
-    func getItems(before itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void)
+    func getInitialItems(completionHandler: @escaping (Result<[APIItem]>) -> Void)
+    func getItemsNewerThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void)
+    func getItemsOlderThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void)
 }
 
 struct RequestManager {
@@ -25,42 +26,50 @@ struct RequestManager {
 }
 
 extension RequestManager: RequestManagerType {
-    func getItems(after itemId: String?, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
-        guard let url = self.urlBuilder.itemsAfter(itemId: itemId) else {
+    
+    func getInitialItems(completionHandler: @escaping (Result<[APIItem]>) -> Void) {
+        guard let url = self.urlBuilder.initialItems() else {
             completionHandler(.failure(NetworkError.invalidUrl))
             return
         }
-
-        self.networkingManager.loadData(from: url) { (result) in
-            switch result {
-            case .success(let data):
-                let items = self.parseItems(data)
-                completionHandler(.success(items))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
-        }
+        self.getItems(from: url, completionHandler: completionHandler)
     }
 
-    func getItems(before itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
-        guard let url = self.urlBuilder.itemsBefore(itemId: itemId) else {
+    func getItemsNewerThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
+        guard let url = self.urlBuilder.itemsNewerThan(itemId: itemId) else {
             completionHandler(.failure(NetworkError.invalidUrl))
             return
         }
+        self.getItems(from: url, completionHandler: completionHandler)
+    }
 
-        self.networkingManager.loadData(from: url) { (result) in
-            switch result {
-            case .success(let data):
-                let items = self.parseItems(data)
-                completionHandler(.success(items))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
+    func getItemsOlderThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
+        guard let url = self.urlBuilder.itemsOlderThan(itemId: itemId) else {
+            completionHandler(.failure(NetworkError.invalidUrl))
+            return
         }
+        self.getItems(from: url, completionHandler: completionHandler)
     }
 }
 
 extension RequestManager {
+
+    private func getItems(from url: URL, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
+        self.networkingManager.loadData(from: url) { (result) in
+            switch result {
+            case .success(let data):
+                let items = self.parseItems(data)
+                DispatchQueue.main.async {
+                    completionHandler(.success(items))
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    completionHandler(.failure(error))
+                }
+            }
+        }
+    }
+
     private func parseItems(_ data: Data) -> [APIItem] {
         let items = try? JSONDecoder().decode([APIItem].self, from: data)
         return items ?? []

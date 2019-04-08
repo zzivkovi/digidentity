@@ -42,90 +42,56 @@ protocol CatalogueScreenDataSourceDelegate {
 // MARK:-
 
 protocol CatalogueScreenDataSourceType {
-    func loadLaterItems()
-    func loadEarlierItems()
+    func loadOlderItems()
+    func loadNewerItems()
 
     var items:[ItemState] { get }
     var delegate: CatalogueScreenDataSourceDelegate? { get set }
 }
 
-// MARK:- Implementation
+// MARK:-
 
 class CatalogueScreenDataSource {
 
-    private var isLoading: Bool = false
-    let requestManager: RequestManagerType
-    let itemsCache: ItemsCacheType
+    private var itemsDataSource: ItemsDataSourceType
 
     var delegate: CatalogueScreenDataSourceDelegate?
     var items = [ItemState]()
 
-    init(requestManager: RequestManagerType, itemsCache: ItemsCacheType) {
-        self.requestManager = requestManager
-        self.itemsCache = itemsCache
+    init(itemsDataSource: ItemsDataSourceType) {
+        self.itemsDataSource = itemsDataSource
+        self.itemsDataSource.delegate = self
 
-        if let items = itemsCache.loadItems() {
-            self.loadedItems(items)
+        if self.itemsDataSource.items.isEmpty {
+            self.itemsDataSource.loadItems(type: .newer)
         } else {
-            self.loadInitialItems()
+            self.handleItems(self.itemsDataSource.items)
         }
     }
 }
 
-// MARK:- CatalogueScreenDataSourceType
+// MARK:-
 
 extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
 
-    func loadLaterItems() {
-        guard !items.isEmpty else {
-            self.loadInitialItems()
-            return
-        }
-
-        // Do not load if already loading
-        guard let itemId = self.canLoad(item: self.items.last) else {
-            return
-        }
-
-        self.requestManager.getItems(after: itemId) { [weak self] (result) in
-            guard let strongSelf = self else {
-                return
-            }
-
-            switch result {
-            case .failure(let error):
-                strongSelf.handleError(error)
-            case .success(let items):
-                strongSelf.cacheLoadedItems(items)
-                strongSelf.loadedItems(items)
-            }
-        }
+    func loadOlderItems() {
+        self.itemsDataSource.loadItems(type: .older)
     }
 
-    func loadEarlierItems() {
-        guard !items.isEmpty else {
-            self.loadInitialItems()
-            return
-        }
-        
-        // Do not load if already loading
-        guard let itemId = self.canLoad(item: self.items.first) else {
-            return
-        }
+    func loadNewerItems() {
+        self.itemsDataSource.loadItems(type: .newer)
+    }
+}
 
-        self.requestManager.getItems(before: itemId) { [weak self] (result) in
-            guard let strongSelf = self else {
-                return
-            }
+// MARK:-
 
-            switch result {
-            case .failure(let error):
-                strongSelf.handleError(error)
-            case .success(let items):
-                strongSelf.cacheLoadedItems(items)
-                strongSelf.loadedItems(items)
-            }
-        }
+extension CatalogueScreenDataSource: ItemDataSourceDelegate {
+    func itemsUpdated(in itemDataSource: ItemsDataSourceType) {
+        self.handleItems(itemsDataSource.items)
+    }
+
+    func receivedError(error: Error) {
+        self.delegate?.receivedError(error: error)
     }
 }
 
@@ -133,103 +99,8 @@ extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
 
 extension CatalogueScreenDataSource {
 
-    func loadInitialItems() {
-        self.requestManager.getItems(after: nil) { [weak self] (result) in
-            guard let strongSelf = self else {
-                return
-            }
-
-            switch result {
-            case .failure(let error):
-                strongSelf.handleError(error)
-            case .success(let items):
-                strongSelf.cacheLoadedItems(items)
-                strongSelf.loadedItems(items)
-            }
-        }
-    }
-
-    private func handleError(_ error: Error) {
-        self.handleErrorResult()
-        self.reportErrorToDelegate(error)
-    }
-
-    private func canLoad(item: ItemState?) -> String? {
-        // Do not load if already loading earlier or later
-        if let first = self.items.first, case .loading = first {
-            return nil
-        } else if let last = self.items.last, case .loading = last {
-            return nil
-        }
-
-        // Check that the item is actually notLoaded
-        guard let item = item, case .notLoaded(let itemId) = item else {
-            return nil
-        }
-
-        // Replace .notLoaded(_) with .loading(_)
-        if let index = self.items.index(where: { $0 == item }) {
-            items[index] = .loading(itemId: itemId)
-            self.reportSuccessToDelegate()
-        }
-
-        return itemId
-    }
-
-    private func cacheLoadedItems(_ items: [APIItem]) {
-        self.itemsCache.cacheItems(items)
-    }
-
-    private func loadedItems(_ items: [APIItem]) {
-        // Handle empty results
-        guard !items.isEmpty else {
-            self.handleEmptyResult()
-            return
-        }
-
-        guard let first = items.first, let last = items.last else {
-            return
-        }
-
-        // Handle items
-        self.items.removeAll()
-        self.items = items.map { .item($0) }
-        self.items.insert(.notLoaded(itemId: first.id), at: 0)
-        self.items.append(.notLoaded(itemId: last.id))
-        self.reportSuccessToDelegate()
-    }
-
-    private func handleErrorResult() {
-        if let first = self.items.first, case let .loading(itemId) = first {
-            self.items.removeFirst()
-            self.items.insert(.notLoaded(itemId: itemId), at: 0)
-        } else if let last = self.items.last, case let .loading(itemId) = last {
-            self.items.removeLast()
-            self.items.append(.notLoaded(itemId: itemId))
-        }
-        self.reportSuccessToDelegate()
-    }
-
-    private func handleEmptyResult() {
-        if let first = self.items.first, case .loading = first {
-            self.items.removeFirst()
-            self.items.insert(.end, at: 0)
-        } else if let last = self.items.last, case .loading = last {
-            self.items.removeLast()
-            self.items.append(.end)
-        }
-        self.reportSuccessToDelegate()
-    }
-
-    private func reportSuccessToDelegate() {
-        DispatchQueue.main.async {
-            self.delegate?.itemsUpdated(in: self)
-        }
-    }
-
-    private func reportErrorToDelegate(_ error: Error) {
-        DispatchQueue.main.async {
-            self.delegate?.receivedError(error: error)
-        }
+    private func handleItems(_ items: [APIItem]) {
+        self.items = items.compactMap { ItemState.item($0) }
+        self.delegate?.itemsUpdated(in: self)
     }
 }

@@ -16,8 +16,7 @@ class CatalogueScreenViewController: UIViewController {
             return CatalogueScreenViewController()
         }
         controller.tableViewDelegate = CatalogueScreenTableViewDelegate(controller: controller,
-                                                                        requestManager: Dependencies.shared.requestManager,
-                                                                        itemsCache: Dependencies.shared.itemsCache)
+                                                                        itemsDataSource: Dependencies.shared.itemsDataSource)
         return controller
     }
 

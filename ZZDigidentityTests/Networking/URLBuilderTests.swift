@@ -25,7 +25,7 @@ class URLBuilderTests: XCTestCase {
         let urlBuilder = URLBuilder(baseUrl: "ftp://base.url:123/dummy/")
 
         // When
-        let url = urlBuilder.itemsAfter(itemId: "1")
+        let url = urlBuilder.itemsNewerThan(itemId: "1")
 
         // Then
         XCTAssertNotNil(url)
@@ -38,13 +38,13 @@ class URLBuilderTests: XCTestCase {
         let itemId: String? = nil
 
         // When
-        let url = sut.itemsAfter(itemId: itemId)
+        let url = sut.itemsNewerThan(itemId: itemId)
 
         // Then
         XCTAssertNotNil(url)
-        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsComponent) ?? false)
+        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsPath) ?? false)
         XCTAssertFalse(url?.absoluteString.contains("?") ?? true)
-        XCTAssertFalse(url?.absoluteString.contains(RequestParameters.Items.afterParameterName) ?? true)
+        XCTAssertFalse(url?.absoluteString.contains(RequestParameters.Items.newerThanParameterName) ?? true)
     }
 
     func test_itemsAfter_itemId() {
@@ -52,12 +52,12 @@ class URLBuilderTests: XCTestCase {
         let itemId = "item123"
 
         // When
-        let url = sut.itemsAfter(itemId: itemId)
+        let url = sut.itemsNewerThan(itemId: itemId)
 
         // Then
         XCTAssertNotNil(url)
-        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsComponent) ?? false)
-        XCTAssertTrue(url?.absoluteString.contains(RequestParameters.Items.afterParameterName) ?? false)
+        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsPath) ?? false)
+        XCTAssertTrue(url?.absoluteString.contains(RequestParameters.Items.newerThanParameterName) ?? false)
         XCTAssertTrue(url?.absoluteString.contains(itemId) ?? false)
     }
 
@@ -66,12 +66,12 @@ class URLBuilderTests: XCTestCase {
         let itemId = "item321"
 
         // When
-        let url = sut.itemsBefore(itemId: itemId)
+        let url = sut.itemsOlderThan(itemId: itemId)
 
         // Then
         XCTAssertNotNil(url)
-        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsComponent) ?? false)
-        XCTAssertTrue(url?.absoluteString.contains(RequestParameters.Items.beforeParameterName) ?? false)
+        XCTAssertTrue(url?.path.contains(RequestParameters.Items.itemsPath) ?? false)
+        XCTAssertTrue(url?.absoluteString.contains(RequestParameters.Items.olderThanParameterName) ?? false)
         XCTAssertTrue(url?.absoluteString.contains(itemId) ?? false)
     }
 }

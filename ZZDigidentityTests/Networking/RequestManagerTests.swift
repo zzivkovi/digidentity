@@ -32,7 +32,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Invalid URL")
 
         // When
-        sut.getItems(after: nil) { (result) in
+        sut.getInitialItems { (result) in
             switch result {
             case .failure(let error):
                 if case NetworkError.invalidUrl = error {
@@ -55,7 +55,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Failure result")
 
         // When
-        sut.getItems(after: nil) { (result) in
+        sut.getInitialItems { (result) in
             switch result {
             case .failure(let error):
                 if case TestError.general = error {
@@ -78,7 +78,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Empty data")
 
         // When
-        sut.getItems(after: nil) { (result) in
+        sut.getInitialItems { (result) in
             switch result {
             case .success(let items):
                 expectation.fulfill()
@@ -99,7 +99,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Existing item")
 
         // When
-        sut.getItems(after: nil) { (result) in
+        sut.getInitialItems { (result) in
             switch result {
             case .success(let items):
                 expectation.fulfill()
@@ -121,7 +121,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Invalid URL")
 
         // When
-        sut.getItems(before: "itemId") { (result) in
+        sut.getItemsOlderThan(before: "itemId") { (result) in
             switch result {
             case .failure(let error):
                 if case NetworkError.invalidUrl = error {
@@ -144,7 +144,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Failure result")
 
         // When
-        sut.getItems(before: "itemId") { (result) in
+        sut.getItemsOlderThan(before: "itemId") { (result) in
             switch result {
             case .failure(let error):
                 if case TestError.general = error {
@@ -167,7 +167,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Empty data")
 
         // When
-        sut.getItems(before: "itemId") { (result) in
+        sut.getItemsOlderThan(before: "itemId") { (result) in
             switch result {
             case .success(let items):
                 expectation.fulfill()

@@ -21,7 +21,7 @@ struct NetworkAuthenticationManager {
     private let headerValues: [RequestTypes: [String: String]]
 
     init() {
-        self.headerValues = [RequestTypes.all: ["Authorization": "d69b387f7cd10f9e6d28fb9b4a1caf5f"]]
+        self.headerValues = [RequestTypes.all: ["Authorization": "df49b6cd51b0baf6e98f373e2efd8d23"]]
     }
 }
 

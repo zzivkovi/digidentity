@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DB802F096A2F8F2F51D5E72 /* libPods-ZZDigidentityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1BFE6D9CF5F3255D87927CC /* libPods-ZZDigidentityTests.a */; };
 		56CBB164E7A24A56F8B9B90F /* libPods-ZZDigidentity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5136C33A2F8FAE804B42564 /* libPods-ZZDigidentity.a */; };
 		8D0262ED225A71C9004B605A /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0262EB225A71C9004B605A /* ItemTableViewCell.swift */; };
 		8D1B84A42258AD5100B34569 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84A32258AD5100B34569 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 		8DA8CA4D225A8B77004DF2A5 /* LoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA4C225A8B77004DF2A5 /* LoaderCell.swift */; };
 		8DA8CA4F225A8CCE004DF2A5 /* EndCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */; };
 		8DA8CA59225A9B4D004DF2A5 /* ItemCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA58225A9B4D004DF2A5 /* ItemCache.swift */; };
+		8DAAC686225BD9FA002B0289 /* ItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,8 +84,12 @@
 		8DA8CA4C225A8B77004DF2A5 /* LoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCell.swift; sourceTree = "<group>"; };
 		8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndCell.swift; sourceTree = "<group>"; };
 		8DA8CA58225A9B4D004DF2A5 /* ItemCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCache.swift; sourceTree = "<group>"; };
+		8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemsDataSource.swift; path = "ZZDigidentity/Data Management/ItemsDataSource.swift"; sourceTree = SOURCE_ROOT; };
 		B5136C33A2F8FAE804B42564 /* libPods-ZZDigidentity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZDigidentity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1C2D42B8CDE580944FF8A /* Pods-ZZDigidentity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentity.release.xcconfig"; path = "Target Support Files/Pods-ZZDigidentity/Pods-ZZDigidentity.release.xcconfig"; sourceTree = "<group>"; };
+		CABD95CEDF7D3BFABECB788C /* Pods-ZZDigidentityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentityTests.debug.xcconfig"; path = "Target Support Files/Pods-ZZDigidentityTests/Pods-ZZDigidentityTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D04755F2A8061E4AE633676A /* Pods-ZZDigidentityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentityTests.release.xcconfig"; path = "Target Support Files/Pods-ZZDigidentityTests/Pods-ZZDigidentityTests.release.xcconfig"; sourceTree = "<group>"; };
+		F1BFE6D9CF5F3255D87927CC /* libPods-ZZDigidentityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZDigidentityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DB802F096A2F8F2F51D5E72 /* libPods-ZZDigidentityTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				B5136C33A2F8FAE804B42564 /* libPods-ZZDigidentity.a */,
+				F1BFE6D9CF5F3255D87927CC /* libPods-ZZDigidentityTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,6 +126,8 @@
 			children = (
 				568A6255A35F5AC6D08719A7 /* Pods-ZZDigidentity.debug.xcconfig */,
 				BAB1C2D42B8CDE580944FF8A /* Pods-ZZDigidentity.release.xcconfig */,
+				CABD95CEDF7D3BFABECB788C /* Pods-ZZDigidentityTests.debug.xcconfig */,
+				D04755F2A8061E4AE633676A /* Pods-ZZDigidentityTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -181,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				8D0262EA225A71AA004B605A /* Cells */,
+				8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */,
 				8D844455225A3F3D00BEA6D1 /* CatalogueScreenDataSource.swift */,
 				8D844453225A3ED300BEA6D1 /* CatalogueScreenTableViewDelegate.swift */,
 				8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */,
@@ -276,6 +287,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D1B84C02258AD5300B34569 /* Build configuration list for PBXNativeTarget "ZZDigidentityTests" */;
 			buildPhases = (
+				0AFC8751E04D412C23B83638 /* [CP] Check Pods Manifest.lock */,
 				8D1B84B02258AD5300B34569 /* Sources */,
 				8D1B84B12258AD5300B34569 /* Frameworks */,
 				8D1B84B22258AD5300B34569 /* Resources */,
@@ -373,6 +385,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		0AFC8751E04D412C23B83638 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZZDigidentityTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -389,6 +423,7 @@
 				8DA8CA59225A9B4D004DF2A5 /* ItemCache.swift in Sources */,
 				8D844443225A03D600BEA6D1 /* URLSessionCertificateValidator.swift in Sources */,
 				8D1B84CE2258D4AF00B34569 /* RequestManager.swift in Sources */,
+				8DAAC686225BD9FA002B0289 /* ItemsDataSource.swift in Sources */,
 				8DA8CA4D225A8B77004DF2A5 /* LoaderCell.swift in Sources */,
 				8D1B84D22258D72F00B34569 /* NetworkingObjects.swift in Sources */,
 				8D844454225A3ED300BEA6D1 /* CatalogueScreenTableViewDelegate.swift in Sources */,
@@ -596,6 +631,7 @@
 		};
 		8D1B84C12258AD5300B34569 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CABD95CEDF7D3BFABECB788C /* Pods-ZZDigidentityTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -617,6 +653,7 @@
 		};
 		8D1B84C22258AD5300B34569 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D04755F2A8061E4AE633676A /* Pods-ZZDigidentityTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

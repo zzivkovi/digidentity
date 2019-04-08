@@ -12,16 +12,17 @@ struct RequestParameters {
     static let stagingBaseUrl = "https://marlove.net/e/mock/v1/"
 
     struct Items {
-        static let itemsComponent = "items"
-        static let afterParameterName = "since_id"
-        static let beforeParameterName = "maxId"
+        static let itemsPath = "items"
+        static let newerThanParameterName = "since_id"
+        static let olderThanParameterName = "maxId"
     }
 }
 
 protocol URLBuilderType {
     var domain: String { get }
-    func itemsAfter(itemId: String?) -> URL?
-    func itemsBefore(itemId: String) -> URL?
+    func initialItems() -> URL?
+    func itemsNewerThan(itemId: String) -> URL?
+    func itemsOlderThan(itemId: String) -> URL?
 }
 
 struct URLBuilder {
@@ -39,26 +40,25 @@ extension URLBuilder: URLBuilderType {
         return url?.host ?? ""
     }
 
-    func itemsAfter(itemId: String?) -> URL? {
-        let parameters: [String: String]?
-        if let itemId = itemId {
-            parameters = [RequestParameters.Items.afterParameterName: itemId]
-        } else {
-            parameters = nil
-        }
-        return self.url(with: RequestParameters.Items.itemsComponent, parameters: parameters)
+    func initialItems() -> URL? {
+        return self.urlWith(path: RequestParameters.Items.itemsPath, parameters: nil)
     }
 
-    func itemsBefore(itemId: String) -> URL? {
-        let parameters = [RequestParameters.Items.beforeParameterName: itemId]
-        return self.url(with: RequestParameters.Items.itemsComponent, parameters: parameters)
+    func itemsNewerThan(itemId: String) -> URL? {
+        let parameters = [RequestParameters.Items.newerThanParameterName: itemId]
+        return self.urlWith(path: RequestParameters.Items.itemsPath, parameters: parameters)
+    }
+
+    func itemsOlderThan(itemId: String) -> URL? {
+        let parameters = [RequestParameters.Items.olderThanParameterName: itemId]
+        return self.urlWith(path: RequestParameters.Items.itemsPath, parameters: parameters)
     }
 }
 
 extension URLBuilder {
 
-    private func url(with subPath: String, parameters: [String: String]?) -> URL? {
-        var components = URLComponents(string: self.baseUrl + subPath)
+    private func urlWith(path: String, parameters: [String: String]?) -> URL? {
+        var components = URLComponents(string: self.baseUrl + path)
         if let parameters = parameters {
             components?.queryItems = parameters.compactMap { URLQueryItem(name: $0, value: $1) }
         }

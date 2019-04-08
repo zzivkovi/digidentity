@@ -6,7 +6,7 @@
 //  Copyright © 2019 Digidentity. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol NetworkManagerType {
     func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void)
@@ -23,6 +23,7 @@ struct NetworkManager {
 }
 
 extension NetworkManager: NetworkManagerType {
+
     func loadData(from url: URL, completionHandler: @escaping (Result<Data>) -> Void) {
 
         var request = URLRequest(url: url)

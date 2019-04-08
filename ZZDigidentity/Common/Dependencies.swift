@@ -16,9 +16,10 @@ struct Dependencies {
     private let urlSession: URLSession
     private let networkAuthenticationManager: NetworkAuthenticationManagerType
     private let networkManager: NetworkManagerType
+    private let requestManager: RequestManagerType
 
     let itemsCache: ItemsCacheType
-    let requestManager: RequestManagerType
+    let itemsDataSource: ItemsDataSourceType
 
     init() {
         self.itemsCache = ItemCache(password: "ifune98ffkdndjn9hu%$&")
@@ -28,5 +29,6 @@ struct Dependencies {
         self.networkAuthenticationManager = NetworkAuthenticationManager()
         self.networkManager = NetworkManager(session: self.urlSession, authenticationManager: self.networkAuthenticationManager)
         self.requestManager = RequestManager(networkingManager: self.networkManager, urlBuilder: self.urlBuilder)
+        self.itemsDataSource = ItemsDataSource(requestManager: self.requestManager, itemsCache: self.itemsCache)
     }
 }
