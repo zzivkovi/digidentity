@@ -110,12 +110,13 @@ extension ItemsDataSource {
     }
 
     private func handleResult(_ result: Result<[APIItem]>) {
+        self.isLoading = false
+        
         switch result {
         case .success(let items):
             self.handleItems(items)
         case .failure(let error):
             self.delegate?.receivedError(error: error)
-            self.isLoading = false
         }
     }
 
@@ -126,6 +127,5 @@ extension ItemsDataSource {
             self.itemsCache.cacheItems(self.items)
         }
         self.delegate?.itemsUpdated(in: self)
-        self.isLoading = false
     }
 }
