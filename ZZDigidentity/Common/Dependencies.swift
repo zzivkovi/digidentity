@@ -18,11 +18,11 @@ struct Dependencies {
     private let networkManager: NetworkManagerType
     private let requestManager: RequestManagerType
 
-    let itemsCache: ItemsCacheType
+    let itemsCache: ItemsDiskStorageType
     let itemsDataSource: ItemsDataSourceType
 
     init() {
-        self.itemsCache = ItemCache(password: "ifune98ffkdndjn9hu%$&")
+        self.itemsCache = ItemsDiskStorage(password: "ifune98ffkdndjn9hu%$&")
         self.urlBuilder = URLBuilder()
         self.sessionValidator = URLSessionCertificateValidator(domain: self.urlBuilder.domain)
         self.urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: self.sessionValidator, delegateQueue: nil)

@@ -1,5 +1,5 @@
 //
-//  ItemCache.swift
+//  ItemsDiskStorage.swift
 //  ZZDigidentity
 //
 //  Created by Zeljko Zivkovic on 07/04/2019.
@@ -9,12 +9,12 @@
 import Foundation
 import RNCryptor
 
-protocol ItemsCacheType {
+protocol ItemsDiskStorageType {
     func loadItems() -> [APIItem]?
     func cacheItems(_ items: [APIItem])
 }
 
-struct ItemCache {
+struct ItemsDiskStorage {
 
     let password: String
     let cachePath: URL
@@ -26,7 +26,7 @@ struct ItemCache {
     }
 }
 
-extension ItemCache: ItemsCacheType {
+extension ItemsDiskStorage: ItemsDiskStorageType {
     func loadItems() -> [APIItem]? {
         guard let data = try? Data(contentsOf: self.cachePath) else {
             return nil

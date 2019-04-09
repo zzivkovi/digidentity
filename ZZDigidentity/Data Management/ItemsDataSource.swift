@@ -31,7 +31,7 @@ protocol ItemsDataSourceType {
 class ItemsDataSource {
 
     private var requestManager: RequestManagerType
-    private var itemsCache: ItemsCacheType
+    private var itemsCache: ItemsDiskStorageType
     private var isLoading: Bool = false {
         didSet {
             UIApplication.shared.isNetworkActivityIndicatorVisible = self.isLoading
@@ -41,7 +41,7 @@ class ItemsDataSource {
     var delegate: ItemDataSourceDelegate?
     var items = [APIItem]()
 
-    init(requestManager: RequestManagerType, itemsCache: ItemsCacheType) {
+    init(requestManager: RequestManagerType, itemsCache: ItemsDiskStorageType) {
         self.requestManager = requestManager
         self.itemsCache = itemsCache
 

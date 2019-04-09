@@ -35,7 +35,7 @@
 		8DA8CA4B225A7C2B004DF2A5 /* CatalogueScreenViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8CA4A225A7C2B004DF2A5 /* CatalogueScreenViewController.storyboard */; };
 		8DA8CA4D225A8B77004DF2A5 /* LoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA4C225A8B77004DF2A5 /* LoaderCell.swift */; };
 		8DA8CA4F225A8CCE004DF2A5 /* EndCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */; };
-		8DA8CA59225A9B4D004DF2A5 /* ItemCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA58225A9B4D004DF2A5 /* ItemCache.swift */; };
+		8DA8CA59225A9B4D004DF2A5 /* ItemsDiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */; };
 		8DAAC686225BD9FA002B0289 /* ItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +83,7 @@
 		8DA8CA4A225A7C2B004DF2A5 /* CatalogueScreenViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CatalogueScreenViewController.storyboard; sourceTree = "<group>"; };
 		8DA8CA4C225A8B77004DF2A5 /* LoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCell.swift; sourceTree = "<group>"; };
 		8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndCell.swift; sourceTree = "<group>"; };
-		8DA8CA58225A9B4D004DF2A5 /* ItemCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCache.swift; sourceTree = "<group>"; };
+		8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsDiskStorage.swift; sourceTree = "<group>"; };
 		8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemsDataSource.swift; path = "ZZDigidentity/Data Management/ItemsDataSource.swift"; sourceTree = SOURCE_ROOT; };
 		B5136C33A2F8FAE804B42564 /* libPods-ZZDigidentity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZDigidentity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1C2D42B8CDE580944FF8A /* Pods-ZZDigidentity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentity.release.xcconfig"; path = "Target Support Files/Pods-ZZDigidentity/Pods-ZZDigidentity.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 		8D1B84C82258BF2300B34569 /* Data Management */ = {
 			isa = PBXGroup;
 			children = (
-				8DA8CA58225A9B4D004DF2A5 /* ItemCache.swift */,
+				8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */,
 				8D1B84C92258BF2D00B34569 /* Networking */,
 			);
 			path = "Data Management";
@@ -420,7 +420,7 @@
 				8D844456225A3F3D00BEA6D1 /* CatalogueScreenDataSource.swift in Sources */,
 				8D84443A2259E62900BEA6D1 /* NetworkAuthenticationManager.swift in Sources */,
 				8D1B84A42258AD5100B34569 /* AppDelegate.swift in Sources */,
-				8DA8CA59225A9B4D004DF2A5 /* ItemCache.swift in Sources */,
+				8DA8CA59225A9B4D004DF2A5 /* ItemsDiskStorage.swift in Sources */,
 				8D844443225A03D600BEA6D1 /* URLSessionCertificateValidator.swift in Sources */,
 				8D1B84CE2258D4AF00B34569 /* RequestManager.swift in Sources */,
 				8DAAC686225BD9FA002B0289 /* ItemsDataSource.swift in Sources */,
