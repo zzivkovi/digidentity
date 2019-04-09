@@ -72,6 +72,7 @@ extension RequestManager {
 
     private func parseItems(_ data: Data) -> [APIItem] {
         let items = try? JSONDecoder().decode([APIItem].self, from: data)
+        items?.forEach { print("\($0.text) - \($0.id)") }
         return items ?? []
     }
 }

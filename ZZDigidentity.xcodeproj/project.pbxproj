@@ -24,6 +24,7 @@
 		8D1B84DB22590CF700B34569 /* URLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84DA22590CF700B34569 /* URLBuilderTests.swift */; };
 		8D1B84DE2259189A00B34569 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B84DD2259189A00B34569 /* Dependencies.swift */; };
 		8D4C9728225D319F0083D784 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4C9727225D319F0083D784 /* Log.swift */; };
+		8D4C972A225D35890083D784 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4C9729225D35890083D784 /* Reusable.swift */; };
 		8D84443A2259E62900BEA6D1 /* NetworkAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8444392259E62900BEA6D1 /* NetworkAuthenticationManager.swift */; };
 		8D84443C2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84443B2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift */; };
 		8D844440225A01EF00BEA6D1 /* TLSValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D84443F225A01EF00BEA6D1 /* TLSValidator.m */; };
@@ -71,6 +72,7 @@
 		8D1B84DA22590CF700B34569 /* URLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilderTests.swift; sourceTree = "<group>"; };
 		8D1B84DD2259189A00B34569 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		8D4C9727225D319F0083D784 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		8D4C9729225D35890083D784 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		8D8444392259E62900BEA6D1 /* NetworkAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAuthenticationManager.swift; sourceTree = "<group>"; };
 		8D84443B2259F19300BEA6D1 /* NetworkAuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAuthenticationManagerTests.swift; sourceTree = "<group>"; };
 		8D84443E225A01EF00BEA6D1 /* TLSValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLSValidator.h; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				8D844441225A02EE00BEA6D1 /* ZZDigidentity-Bridging-Header.h */,
 				8D1B84DD2259189A00B34569 /* Dependencies.swift */,
 				8D4C9727225D319F0083D784 /* Log.swift */,
+				8D4C9729225D35890083D784 /* Reusable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				8D1B84CB2258BF4800B34569 /* NetworkManager.swift in Sources */,
 				8D1B84C62258B8BD00B34569 /* CatalogueScreenViewController.swift in Sources */,
 				8D844456225A3F3D00BEA6D1 /* CatalogueScreenDataSource.swift in Sources */,
+				8D4C972A225D35890083D784 /* Reusable.swift in Sources */,
 				8D84443A2259E62900BEA6D1 /* NetworkAuthenticationManager.swift in Sources */,
 				8D1B84A42258AD5100B34569 /* AppDelegate.swift in Sources */,
 				8DA8CA59225A9B4D004DF2A5 /* ItemsDiskStorage.swift in Sources */,

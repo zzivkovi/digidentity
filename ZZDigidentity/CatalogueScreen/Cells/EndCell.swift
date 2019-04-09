@@ -8,6 +8,6 @@
 
 import UIKit
 
-class EndCell: UITableViewCell {
+class EndCell: UITableViewCell, Reusable {
     
 }

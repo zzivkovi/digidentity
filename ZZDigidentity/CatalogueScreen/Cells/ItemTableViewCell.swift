@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemTableViewCell: UITableViewCell {
+class ItemTableViewCell: UITableViewCell, Reusable {
 
     @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var idLabel: UILabel!

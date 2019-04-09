@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoaderCell: UITableViewCell {
+class LoaderCell: UITableViewCell, Reusable {
 
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 

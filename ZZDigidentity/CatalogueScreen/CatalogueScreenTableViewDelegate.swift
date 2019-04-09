@@ -52,25 +52,25 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
 
         let cell: UITableViewCell?
         let itemCase = self.dataSource.items[indexPath.row]
-        
+
         switch itemCase {
         case .item(let item):
-            let itemCell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell") as? ItemTableViewCell
+            let itemCell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.reuseIdentifier) as? ItemTableViewCell
             itemCell?.setApiItem(item)
             cell = itemCell
 
         case .loading(_):
-            let loaderCell = tableView.dequeueReusableCell(withIdentifier: "LoaderCell") as? LoaderCell
+            let loaderCell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier) as? LoaderCell
             loaderCell?.animate()
             cell = loaderCell
 
         case .notLoaded(_):
-            let loaderCell = tableView.dequeueReusableCell(withIdentifier: "LoaderCell") as? LoaderCell
+            let loaderCell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier) as? LoaderCell
             loaderCell?.stopAnimating()
             cell = loaderCell
             
         case .end:
-            cell = tableView.dequeueReusableCell(withIdentifier: "EndCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier)
         }
 
         return cell ?? UITableViewCell(frame: .zero)
