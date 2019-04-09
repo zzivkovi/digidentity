@@ -55,13 +55,13 @@ extension ItemsDataSource: ItemsDataSourceType {
 
     func loadItems(type: FetchType) {
         // Check if already loading
-        guard !self.isLoading else {
+        if self.isLoading {
             self.delegate?.receivedError(error: ItemDataSourceError.alreadyLoading)
             return
         }
 
-        // Empty list
-        guard !self.items.isEmpty else {
+        // On empty list load initial items
+        if self.items.isEmpty {
             self.loadInitialItems()
             return
         }
@@ -121,11 +121,12 @@ extension ItemsDataSource {
     }
 
     private func handleItems(_ items: [APIItem]) {
-
+        // If there are items, sort and replace current list
         if !items.isEmpty {
             self.items = items.sorted(by: { (i1, i2) -> Bool in i1.id > i2.id })
             self.itemsCache.cacheItems(self.items)
         }
+        // Notify delegate about finished data load
         self.delegate?.itemsUpdated(in: self)
     }
 }
