@@ -79,7 +79,7 @@ extension ItemsDataSource: ItemsDataSourceType {
 extension ItemsDataSource {
     private func loadInitialItems() {
         self.isLoading = true
-        self.requestManager.getInitialItems { [weak self] (result) in
+        self.requestManager.getItems(with: .initial) { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.handleResult(result)
         }
@@ -91,7 +91,7 @@ extension ItemsDataSource {
         }
 
         self.isLoading = true
-        self.requestManager.getItemsNewerThan(itemId: first.id) { [weak self] (result) in
+        self.requestManager.getItems(with: .newer(itemId: first.id)) { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.handleResult(result)
         }
@@ -103,7 +103,7 @@ extension ItemsDataSource {
         }
 
         self.isLoading = true
-        self.requestManager.getItemsOlderThan(itemId: last.id) { [weak self] (result) in
+        self.requestManager.getItems(with: .older(itemId: last.id)) { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.handleResult(result)
         }

@@ -8,10 +8,14 @@
 
 import Foundation
 
+enum ItemsFetchRequestType {
+    case initial
+    case older(itemId: String)
+    case newer(itemId: String)
+}
+
 protocol RequestManagerType {
-    func getInitialItems(completionHandler: @escaping (Result<[APIItem]>) -> Void)
-    func getItemsNewerThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void)
-    func getItemsOlderThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void)
+    func getItems(with fetchType: ItemsFetchRequestType, completionHandler: @escaping (Result<[APIItem]>) -> Void)
 }
 
 struct RequestManager {
@@ -26,28 +30,24 @@ struct RequestManager {
 }
 
 extension RequestManager: RequestManagerType {
-    
-    func getInitialItems(completionHandler: @escaping (Result<[APIItem]>) -> Void) {
-        guard let url = self.urlBuilder.initialItems() else {
-            completionHandler(.failure(NetworkError.invalidUrl))
-            return
+    func getItems(with fetchType: ItemsFetchRequestType, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
+        // Get the appropriate URL
+        let tempUrl: URL?
+        switch fetchType {
+        case .initial:
+            tempUrl = self.urlBuilder.initialItems()
+        case .older(let itemId):
+            tempUrl = self.urlBuilder.itemsOlderThan(itemId: itemId)
+        case .newer(let itemId):
+            tempUrl = self.urlBuilder.itemsNewerThan(itemId: itemId)
         }
-        self.getItems(from: url, completionHandler: completionHandler)
-    }
 
-    func getItemsNewerThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
-        guard let url = self.urlBuilder.itemsNewerThan(itemId: itemId) else {
+        // Make sure URL exists
+        guard let url = tempUrl else {
             completionHandler(.failure(NetworkError.invalidUrl))
             return
         }
-        self.getItems(from: url, completionHandler: completionHandler)
-    }
-
-    func getItemsOlderThan(itemId: String, completionHandler: @escaping (Result<[APIItem]>) -> Void) {
-        guard let url = self.urlBuilder.itemsOlderThan(itemId: itemId) else {
-            completionHandler(.failure(NetworkError.invalidUrl))
-            return
-        }
+        // Fetch data
         self.getItems(from: url, completionHandler: completionHandler)
     }
 }
