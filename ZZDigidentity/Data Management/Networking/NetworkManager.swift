@@ -33,6 +33,7 @@ extension NetworkManager: NetworkManagerType {
         }
 
         let task = self.session.dataTask(with: request) { data, response, error in
+            Log.message("Finished fetching: \(request.url?.absoluteString ?? "")")
 
             // Check for error
             if let error = error {
