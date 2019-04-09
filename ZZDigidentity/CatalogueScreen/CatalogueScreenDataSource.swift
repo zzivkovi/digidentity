@@ -11,21 +11,21 @@ import Foundation
 // MARK:-
 
 enum ItemState: Equatable {
-    case notLoaded(itemId: String)
-    case loading(itemId: String)
+    case notLoaded(APIItem)
+    case loading(APIItem)
     case end
     case item(APIItem)
 
     static func == (lhs: ItemState, rhs: ItemState) -> Bool {
         switch (lhs, rhs) {
-        case (let .notLoaded(lhsId), let .notLoaded(rhsId)):
-            return lhsId == rhsId
-        case (let .loading(lhsId), let .loading(rhsId)):
-            return lhsId == rhsId
+        case (let .notLoaded(lhs), let .notLoaded(rhs)):
+            return lhs == rhs
+        case (let .loading(lhs), let .loading(rhs)):
+            return lhs == rhs
         case (.end, .end):
             return true
-        case (let .item(lhsItem), let .item(rhsItem)):
-            return lhsItem == rhsItem
+        case (let .item(lhs), let .item(rhs)):
+            return lhs == rhs
         default:
             return false
         }
