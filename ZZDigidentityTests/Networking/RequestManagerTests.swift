@@ -32,7 +32,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Invalid URL")
 
         // When
-        sut.getInitialItems { (result) in
+        sut.getItems(with: .initial) { (result) in
             switch result {
             case .failure(let error):
                 if case NetworkError.invalidUrl = error {
@@ -55,7 +55,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Failure result")
 
         // When
-        sut.getInitialItems { (result) in
+        sut.getItems(with: .initial) { (result) in
             switch result {
             case .failure(let error):
                 if case TestError.general = error {
@@ -78,7 +78,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Empty data")
 
         // When
-        sut.getInitialItems { (result) in
+        sut.getItems(with: .initial) { (result) in
             switch result {
             case .success(let items):
                 expectation.fulfill()
@@ -99,7 +99,7 @@ class RequestManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Existing item")
 
         // When
-        sut.getInitialItems { (result) in
+        sut.getItems(with: .initial) { (result) in
             switch result {
             case .success(let items):
                 expectation.fulfill()
@@ -114,14 +114,14 @@ class RequestManagerTests: XCTestCase {
     }
 
 
-    func test_itemsBefore_invalidUrl() {
+    func test_itemsOlder_invalidUrl() {
         // Given
         urlBuilder.url = nil
         networkManager.result = Result.success("data".data(using: .utf8)!)
         let expectation = XCTestExpectation(description: "Invalid URL")
 
         // When
-        sut.getItemsOlderThan(before: "itemId") { (result) in
+        sut.getItems(with: .older(itemId: "123")) { (result) in
             switch result {
             case .failure(let error):
                 if case NetworkError.invalidUrl = error {
@@ -138,13 +138,13 @@ class RequestManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
 
-    func test_itemsBefore_failure() {
+    func test_itemsOlder_failure() {
         // Given
         networkManager.result = .failure(TestError.general)
         let expectation = XCTestExpectation(description: "Failure result")
 
         // When
-        sut.getItemsOlderThan(before: "itemId") { (result) in
+        sut.getItems(with: .older(itemId: "123")) { (result) in
             switch result {
             case .failure(let error):
                 if case TestError.general = error {
@@ -161,17 +161,38 @@ class RequestManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
 
-    func test_itemsBefore_emptyData() {
+    func test_itemsOlder_emptyData() {
         // Given
         networkManager.result = .success(Data())
         let expectation = XCTestExpectation(description: "Empty data")
 
         // When
-        sut.getItemsOlderThan(before: "itemId") { (result) in
+        sut.getItems(with: .older(itemId: "123")) { (result) in
             switch result {
             case .success(let items):
                 expectation.fulfill()
                 XCTAssertTrue(items.isEmpty)
+            default:
+                XCTFail()
+            }
+        }
+
+        // Then
+        wait(for: [expectation], timeout: 1)
+    }
+
+    func test_itemsNewer_correctData() {
+        // Given
+        let data = "[{\"img\": \"werwet\",\"text\": \"Hello world!\",\"confidence\": 0.7,\"_id\":\"123\"}]".data(using: .utf8) ?? Data()
+        networkManager.result = .success(data)
+        let expectation = XCTestExpectation(description: "Empty data")
+
+        // When
+        sut.getItems(with: .newer(itemId: "321")) { (result) in
+            switch result {
+            case .success(let items):
+                expectation.fulfill()
+                XCTAssertEqual(items.count, 1)
             default:
                 XCTFail()
             }
