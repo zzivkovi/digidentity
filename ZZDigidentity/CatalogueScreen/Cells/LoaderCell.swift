@@ -8,12 +8,22 @@
 
 import UIKit
 
+enum LoaderCellAction {
+    case delete
+    case load
+}
+
 class LoaderCell: UITableViewCell, Reusable {
 
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
-    func animate() {
-        self.activityIndicator.color = .green
+    func animate(with action: LoaderCellAction = .load) {
+        switch action {
+        case .load:
+            self.activityIndicator.color = .green
+        case .delete:
+            self.activityIndicator.color = .red
+        }
         self.activityIndicator.startAnimating()
     }
 

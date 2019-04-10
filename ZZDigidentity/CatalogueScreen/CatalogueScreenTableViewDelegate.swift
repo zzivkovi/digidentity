@@ -64,6 +64,11 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
             loaderCell?.animate()
             cell = loaderCell
 
+        case .deleting(_):
+            let loaderCell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier) as? LoaderCell
+            loaderCell?.animate()
+            cell = loaderCell
+
         case .notLoaded(_):
             let loaderCell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier) as? LoaderCell
             loaderCell?.stopAnimating()

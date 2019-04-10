@@ -13,6 +13,7 @@ import Foundation
 enum ItemState: Equatable {
     case notLoaded(APIItem)
     case loading(APIItem)
+    case deleting(APIItem)
     case end
     case item(APIItem)
 
