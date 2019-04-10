@@ -11,7 +11,7 @@ import UIKit
 class CatalogueScreenViewController: UIViewController {
 
     static func create() -> CatalogueScreenViewController {
-        guard let controller = UIStoryboard(name: "CatalogueScreenViewController", bundle: nil).instantiateViewController(withIdentifier: "CatalogueScreenViewController") as? CatalogueScreenViewController else {
+        guard let controller = UIStoryboard(name: String(describing: self), bundle: nil).instantiateViewController(withIdentifier: String(describing: self)) as? CatalogueScreenViewController else {
             assertionFailure("Mising controller")
             return CatalogueScreenViewController()
         }
