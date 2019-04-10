@@ -8,9 +8,14 @@
 
 import UIKit
 
+// MARK:-
+
 protocol CatalogueScreenTableViewDelegateType {
     var tableView: UITableView { get set }
+    func reloadTableView()
 }
+
+// MARK:-
 
 class CatalogueScreenTableViewDelegate: NSObject {
     var tableView: UITableView = UITableView() {
@@ -30,15 +35,62 @@ class CatalogueScreenTableViewDelegate: NSObject {
         self.controller = controller
         self.dataSource = CatalogueScreenDataSource(itemsDataSource: itemsDataSource)
     }
+}
+
+// MARK:- CatalogueScreenTableViewDelegateType
+
+extension CatalogueScreenTableViewDelegate: CatalogueScreenTableViewDelegateType {
+    func reloadTableView() {
+        self.reloadTableData()
+    }
+}
+
+// MARK:-
+
+extension CatalogueScreenTableViewDelegate {
 
     private func reloadTableData() {
         self.tableView.reloadData()
+
+        if self.scrollToLoadingItem() {
+            return
+        }
+
+        // Find first row with data
+        let first = self.dataSource.items.filter {
+            switch $0 {
+            case .item(_):
+                return true
+            default:
+                return false
+            }
+        }.first
+        // Scroll to first row with data
+        if let firstItem = first, let index = self.dataSource.items.firstIndex(of: firstItem) {
+            self.tableView.scrollToRow(at: .init(row: index, section: 0) , at: .top, animated: false)
+        }
     }
 
-    private func loadLaterData() {
-
+    private func scrollToLoadingItem() -> Bool {
+        // Find first row with loading state
+        let first = self.dataSource.items.filter {
+            switch $0 {
+            case .loading(_):
+                return true
+            default:
+                return false
+            }
+            }.first
+        // Scroll to first row with data
+        if let firstItem = first, let index = self.dataSource.items.firstIndex(of: firstItem) {
+            self.tableView.scrollToRow(at: .init(row: index, section: 0) , at: .top, animated: true)
+            return true
+        }
+        return false
     }
 }
+
+// MARK:- UITableViewDataSource
 
 extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,6 +134,8 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
     }
 }
 
+// MARK:- UITableViewDelegate
+
 extension CatalogueScreenTableViewDelegate: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == 0 {
@@ -91,6 +145,8 @@ extension CatalogueScreenTableViewDelegate: UITableViewDelegate {
         }
     }
 }
+
+// MARK:- CatalogueScreenDataSourceDelegate
 
 extension CatalogueScreenTableViewDelegate: CatalogueScreenDataSourceDelegate {
     func itemsUpdated(in catalogueDataSource: CatalogueScreenDataSourceType) {

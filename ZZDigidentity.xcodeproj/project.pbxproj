@@ -88,7 +88,7 @@
 		8DA8CA4C225A8B77004DF2A5 /* LoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCell.swift; sourceTree = "<group>"; };
 		8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndCell.swift; sourceTree = "<group>"; };
 		8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsDiskStorage.swift; sourceTree = "<group>"; };
-		8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemsDataSource.swift; path = "ZZDigidentity/Data Management/ItemsDataSource.swift"; sourceTree = SOURCE_ROOT; };
+		8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemsDataSource.swift; path = "ZZDigidentity/Data Management/Caches/ItemsDataSource.swift"; sourceTree = SOURCE_ROOT; };
 		B5136C33A2F8FAE804B42564 /* libPods-ZZDigidentity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZDigidentity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1C2D42B8CDE580944FF8A /* Pods-ZZDigidentity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentity.release.xcconfig"; path = "Target Support Files/Pods-ZZDigidentity/Pods-ZZDigidentity.release.xcconfig"; sourceTree = "<group>"; };
 		CABD95CEDF7D3BFABECB788C /* Pods-ZZDigidentityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentityTests.debug.xcconfig"; path = "Target Support Files/Pods-ZZDigidentityTests/Pods-ZZDigidentityTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -206,9 +206,8 @@
 		8D1B84C82258BF2300B34569 /* Data Management */ = {
 			isa = PBXGroup;
 			children = (
-				8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */,
-				8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */,
 				8D1B84C92258BF2D00B34569 /* Networking */,
+				8DD783F2225DD55700947136 /* Caches */,
 			);
 			path = "Data Management";
 			sourceTree = "<group>";
@@ -266,6 +265,15 @@
 				8D84444C225A129900BEA6D1 /* certificate.cer */,
 			);
 			path = "Pinned Certificates";
+			sourceTree = "<group>";
+		};
+		8DD783F2225DD55700947136 /* Caches */ = {
+			isa = PBXGroup;
+			children = (
+				8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */,
+				8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */,
+			);
+			path = Caches;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

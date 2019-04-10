@@ -22,12 +22,17 @@ class CatalogueScreenViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
 
-    private var tableViewDelegate: CatalogueScreenTableViewDelegate!
+    private var tableViewDelegate: CatalogueScreenTableViewDelegateType!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.tableViewDelegate.tableView = self.tableView
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableViewDelegate.reloadTableView()
     }
 }

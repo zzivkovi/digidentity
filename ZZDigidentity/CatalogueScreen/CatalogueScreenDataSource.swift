@@ -17,6 +17,15 @@ enum ItemState: Equatable {
     case end
     case item(APIItem)
 
+    var isAction: Bool {
+        switch self {
+        case .loading(_), .deleting(_):
+            return true
+        default:
+            return false
+        }
+    }
+
     static func == (lhs: ItemState, rhs: ItemState) -> Bool {
         switch (lhs, rhs) {
         case (let .notLoaded(lhs), let .notLoaded(rhs)):
@@ -62,10 +71,14 @@ class CatalogueScreenDataSource {
         self.itemsDataSource = itemsDataSource
         self.itemsDataSource.delegate = self
 
+        // Get and transform items from ItemsDataSource
+        self.items = self.itemsDataSource.items.compactMap { .item($0) }
+        self.handleItems(self.itemsDataSource.items)
+
+        // Load items if list is empty
         if self.itemsDataSource.items.isEmpty {
-            self.itemsDataSource.loadItems(type: .newer)
-        } else {
-            self.handleItems(self.itemsDataSource.items)
+            let itemId = self.itemsDataSource.loadItems(type: .newer)
+            self.updateLoadingState(for: itemId)
         }
     }
 }
@@ -75,7 +88,8 @@ class CatalogueScreenDataSource {
 extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
 
     func loadItems(type: FetchType) {
-        self.itemsDataSource.loadItems(type: type)
+        let itemId = self.itemsDataSource.loadItems(type: type)
+        self.updateLoadingState(for: itemId)
     }
 }
 
@@ -95,8 +109,74 @@ extension CatalogueScreenDataSource: ItemDataSourceDelegate {
 
 extension CatalogueScreenDataSource {
 
+    /// Maps `APIItem` array to own `ListItem` array and notifies the delegate
     private func handleItems(_ items: [APIItem]) {
-        self.items = items.compactMap { ItemState.item($0) }
+        self.items = self.mapItemsToItemStates(items)
+        self.delegate?.itemsUpdated(in: self)
+    }
+
+    /// Creates an array of displayable `ItemState` objects from an `APIItem` array
+    private func mapItemsToItemStates(_ items: [APIItem]) -> [ItemState] {
+        // No items
+        if let temp = handleEmptyList(items) {
+            return temp
+        }
+
+        var newItems = [ItemState]()
+        // Generate first item
+        if let first = items.first, let currentFirst = self.items.first {
+            newItems.append(self.listItem(for: first, andPreviousItemState: currentFirst))
+        }
+
+        // Actual items
+        newItems += items.compactMap { .item($0) }
+
+        // Generate last item
+        if let last = items.last, let currentLast = self.items.last {
+            newItems.append(self.listItem(for: last, andPreviousItemState: currentLast))
+        }
+
+        return newItems
+    }
+
+    /// Displays a dummy `loading` item state in case of an empty list
+    private func handleEmptyList(_ items: [APIItem]) -> [ItemState]? {
+        if !items.isEmpty {
+            return nil
+        }
+        return [.loading(APIItem.emptyItem())]
+    }
+
+    /// Returns `notLoaded` state for an item or `end` if the item for previous list and the new one are the same
+    private func listItem(for item: APIItem, andPreviousItemState current: ItemState) -> ItemState {
+
+        // Was loading an item and new item is the same
+        if case let .loading(currentItem) = current, currentItem.id == item.id {
+            return .end
+        }
+
+        return .notLoaded(item)
+    }
+
+    /// Finds `notLoaded` state for item and replaces it with `loading`
+    private func updateLoadingState(for itemId: String?) {
+        guard let itemId = itemId else {
+            return
+        }
+
+        let loadingStateItem = self.items.filter {
+            switch $0 {
+            case .notLoaded(let item):
+                return item.id == itemId
+            default:
+                return false
+            }
+        }.first
+        guard let loadingState = loadingStateItem, case let .notLoaded(item)? = loadingStateItem, let index = self.items.firstIndex(of: loadingState) else {
+            return
+        }
+
+        self.items[index] = .loading(item)
         self.delegate?.itemsUpdated(in: self)
     }
 }

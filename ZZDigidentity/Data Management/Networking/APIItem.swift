@@ -21,6 +21,10 @@ struct APIItem: Equatable {
         let image = UIImage(data: data)
         return image
     }
+
+    static func emptyItem() -> APIItem {
+        return APIItem(id: "-", text: "-", confidence: 0.0, imageString: "-")
+    }
 }
 
 extension APIItem: Codable {
