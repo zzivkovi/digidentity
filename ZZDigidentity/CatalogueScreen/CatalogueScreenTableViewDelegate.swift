@@ -18,6 +18,9 @@ protocol CatalogueScreenTableViewDelegateType {
 // MARK:-
 
 class CatalogueScreenTableViewDelegate: NSObject {
+
+    private let dataLoadDelay = 1.0
+
     var tableView: UITableView = UITableView() {
         didSet {
             self.dataSource.delegate = self
@@ -88,6 +91,14 @@ extension CatalogueScreenTableViewDelegate {
         }
         return false
     }
+
+    @objc private func loadOlderData() {
+        self.dataSource.loadItems(type: .older)
+    }
+
+    @objc private func loadNewerData() {
+        self.dataSource.loadItems(type: .newer)
+    }
 }
 
 // MARK:- UITableViewDataSource
@@ -123,11 +134,11 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
 
         case .notLoaded(_):
             let loaderCell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier) as? LoaderCell
-            loaderCell?.stopAnimating()
+            loaderCell?.animate(with: .wait(duration: self.dataLoadDelay))
             cell = loaderCell
             
         case .end:
-            cell = tableView.dequeueReusableCell(withIdentifier: LoaderCell.reuseIdentifier)
+            cell = tableView.dequeueReusableCell(withIdentifier: EndCell.reuseIdentifier)
         }
 
         return cell ?? UITableViewCell(frame: .zero)
@@ -139,10 +150,14 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
 extension CatalogueScreenTableViewDelegate: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == 0 {
-            self.dataSource.loadItems(type: .newer)
+            self.perform(#selector(loadNewerData),  with: nil, afterDelay: self.dataLoadDelay)
         } else if scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height {
-            self.dataSource.loadItems(type: .older)
+            self.perform(#selector(loadOlderData),  with: nil, afterDelay: self.dataLoadDelay)
         }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
 }
 

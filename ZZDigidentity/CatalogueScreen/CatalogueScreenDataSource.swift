@@ -58,7 +58,7 @@ protocol CatalogueScreenDataSourceType {
     var delegate: CatalogueScreenDataSourceDelegate? { get set }
 }
 
-// MARK:-
+// MARK:- Private methods
 
 class CatalogueScreenDataSource {
 
@@ -81,6 +81,26 @@ class CatalogueScreenDataSource {
             self.updateLoadingState(for: itemId)
         }
     }
+
+    private func canLoad(type: FetchType) -> Bool {
+        // Not if already executing an action
+        let actions = self.items.filter { $0.isAction }
+        if !actions.isEmpty {
+            return false
+        }
+
+        // Not if should fetch newer and first item is the end of data
+        if case .newer = type, let firstState = self.items.first, .end == firstState {
+            return false
+        }
+
+        // Not if should fetch older and last item is the end of data
+        if case .older = type, let lastState = self.items.last, .end == lastState {
+            return false
+        }
+
+        return true
+    }
 }
 
 // MARK:-
@@ -88,6 +108,10 @@ class CatalogueScreenDataSource {
 extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
 
     func loadItems(type: FetchType) {
+        guard self.canLoad(type: type) else {
+            return
+        }
+        
         let itemId = self.itemsDataSource.loadItems(type: type)
         self.updateLoadingState(for: itemId)
     }
