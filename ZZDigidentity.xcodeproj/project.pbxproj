@@ -195,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				8D0262EA225A71AA004B605A /* Cells */,
-				8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */,
 				8D844455225A3F3D00BEA6D1 /* CatalogueScreenDataSource.swift */,
 				8D844453225A3ED300BEA6D1 /* CatalogueScreenTableViewDelegate.swift */,
 				8D1B84C42258B8BD00B34569 /* CatalogueScreenViewController.swift */,
@@ -208,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */,
+				8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */,
 				8D1B84C92258BF2D00B34569 /* Networking */,
 			);
 			path = "Data Management";

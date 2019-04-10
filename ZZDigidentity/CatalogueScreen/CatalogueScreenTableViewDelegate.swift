@@ -80,9 +80,9 @@ extension CatalogueScreenTableViewDelegate: UITableViewDataSource {
 extension CatalogueScreenTableViewDelegate: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == 0 {
-            self.dataSource.loadNewerItems()
+            self.dataSource.loadItems(type: .newer)
         } else if scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height {
-            self.dataSource.loadOlderItems()
+            self.dataSource.loadItems(type: .older)
         }
     }
 }

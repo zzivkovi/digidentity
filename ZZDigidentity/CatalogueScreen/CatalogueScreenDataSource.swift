@@ -42,8 +42,7 @@ protocol CatalogueScreenDataSourceDelegate {
 // MARK:-
 
 protocol CatalogueScreenDataSourceType {
-    func loadOlderItems()
-    func loadNewerItems()
+    func loadItems(type: FetchType)
 
     var items:[ItemState] { get }
     var delegate: CatalogueScreenDataSourceDelegate? { get set }
@@ -74,12 +73,8 @@ class CatalogueScreenDataSource {
 
 extension CatalogueScreenDataSource: CatalogueScreenDataSourceType {
 
-    func loadOlderItems() {
-        self.itemsDataSource.loadItems(type: .older)
-    }
-
-    func loadNewerItems() {
-        self.itemsDataSource.loadItems(type: .newer)
+    func loadItems(type: FetchType) {
+        self.itemsDataSource.loadItems(type: type)
     }
 }
 

@@ -8,10 +8,6 @@
 
 import UIKit
 
-enum ItemDataSourceError: Error {
-    case alreadyLoading
-}
-
 enum FetchType {
     case newer
     case older
@@ -32,11 +28,6 @@ class ItemsDataSource {
 
     private var requestManager: RequestManagerType
     private var itemsCache: ItemsDiskStorageType
-    private var isLoading: Bool = false {
-        didSet {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = self.isLoading
-        }
-    }
 
     var delegate: ItemDataSourceDelegate?
     var items = [APIItem]()
@@ -54,12 +45,6 @@ class ItemsDataSource {
 extension ItemsDataSource: ItemsDataSourceType {
 
     func loadItems(type: FetchType) {
-        // Check if already loading
-        if self.isLoading {
-            self.delegate?.receivedError(error: ItemDataSourceError.alreadyLoading)
-            return
-        }
-
         // On empty list load initial items
         if self.items.isEmpty {
             self.loadInitialItems()
@@ -78,7 +63,6 @@ extension ItemsDataSource: ItemsDataSourceType {
 
 extension ItemsDataSource {
     private func loadInitialItems() {
-        self.isLoading = true
         self.requestManager.getItems(with: .initial) { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.handleResult(result)
@@ -90,7 +74,6 @@ extension ItemsDataSource {
             return
         }
 
-        self.isLoading = true
         self.requestManager.getItems(with: .newer(itemId: first.id)) { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.handleResult(result)
@@ -102,7 +85,6 @@ extension ItemsDataSource {
             return
         }
 
-        self.isLoading = true
         self.requestManager.getItems(with: .older(itemId: last.id)) { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.handleResult(result)
@@ -110,8 +92,6 @@ extension ItemsDataSource {
     }
 
     private func handleResult(_ result: Result<[APIItem]>) {
-        self.isLoading = false
-        
         switch result {
         case .success(let items):
             self.handleItems(items)
