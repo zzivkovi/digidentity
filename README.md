@@ -3,9 +3,17 @@ Zeljko Zivkovic [info@applab.hr]
 
 This repository contains a solution to Digidentity's mobile development testcase - a mobile application to consume a simple REST based API
 
+### Installation
 
-## Application architecture
-Project does not have any specific artchitecture in place but the code has been structured in such a way to mirror logical units which perform single responsibilities. All of the architecture layers are abstracted, thus encapsulated and easily mocked during testing.
+```
+git clone https://github.com/zzivkovi/digidentity
+cd digidentity
+pod install
+```
+Open the resulting workspace `ZZDigidentity.xcworkspace`
+
+### Application architecture
+Project does not have any specific artchitecture in place but code has been structured in such a way to mirror logical units performing single responsibility. All of the architecture layers are abstracted, thus encapsulated and easily mocked during testing.
 
 App structure is listed below ordered from lowest, system level to highest, UI level
 
@@ -34,6 +42,12 @@ Singleton object which instantiates application services and serves as their con
 Class which is a `URLSession` delegate and handles TLS validation.
 
 
+### Third party dependencies
+Only dependency is `RNCryptor` used for AES256 encryption of disk stored data.
 
-## Caveats
-Due to time constraints `TLSValidator` has been added as a pre-existing Objective-C class. Ideally it should be rewritten in Swift.
+
+### Caveats
+Due to time constraints certain compromises have been made in the project:
+- `TLSValidator` has been added as a pre-existing Objective-C class. Ideally it should be rewritten in Swift which would mitigate a need for a bridging header.
+- Only networking classes have been tested.
+- There is no delete or upload functionality
