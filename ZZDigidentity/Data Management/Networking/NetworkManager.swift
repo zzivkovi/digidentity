@@ -35,15 +35,8 @@ extension NetworkManager: NetworkManagerType {
         let task = self.session.dataTask(with: request) { data, response, error in
             Log.message("Finished fetching: \(request.url?.absoluteString ?? "")")
 
-            // Check for error
-            if let error = error {
-                completionHandler(.failure(NetworkError.general(error)))
-                return
-            }
-
-            // Check for valid status code
-            if let error = self.checkResponseForValidity(response) {
-                completionHandler(.failure(error))
+            // Check for errors
+            if self.hasError(error: error, response: response, completionHandler: completionHandler) {
                 return
             }
 
@@ -63,6 +56,24 @@ extension NetworkManager: NetworkManagerType {
 }
 
 extension NetworkManager {
+
+    private func hasError<T>(error: Error?, response: URLResponse?, completionHandler: @escaping (Result<T>) -> Void) -> Bool {
+        // Check for API error
+        if let error = error {
+            completionHandler(.failure(NetworkError.general(error)))
+            return true
+        }
+
+        // Check for valid status code
+        if let error = self.checkResponseForValidity(response) {
+            completionHandler(.failure(error))
+            return true
+        }
+
+        // No error received
+        return false
+    }
+
     private func checkResponseForValidity(_ response: URLResponse?) -> Error? {
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         guard 200..<300 ~= statusCode else {

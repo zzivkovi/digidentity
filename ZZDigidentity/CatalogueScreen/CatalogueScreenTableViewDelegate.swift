@@ -53,6 +53,8 @@ extension CatalogueScreenTableViewDelegate: CatalogueScreenTableViewDelegateType
 extension CatalogueScreenTableViewDelegate {
 
     private func reloadTableData() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        
         self.tableView.reloadData()
 
         if self.scrollToLoadingItem() {
