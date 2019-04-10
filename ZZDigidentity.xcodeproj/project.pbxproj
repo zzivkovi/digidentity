@@ -39,6 +39,7 @@
 		8DA8CA4F225A8CCE004DF2A5 /* EndCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */; };
 		8DA8CA59225A9B4D004DF2A5 /* ItemsDiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */; };
 		8DAAC686225BD9FA002B0289 /* ItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */; };
+		8DD783F6225E666500947136 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8DD783F5225E666500947136 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		8DA8CA4E225A8CCE004DF2A5 /* EndCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndCell.swift; sourceTree = "<group>"; };
 		8DA8CA58225A9B4D004DF2A5 /* ItemsDiskStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsDiskStorage.swift; sourceTree = "<group>"; };
 		8DAAC685225BD9FA002B0289 /* ItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemsDataSource.swift; path = "ZZDigidentity/Data Management/Caches/ItemsDataSource.swift"; sourceTree = SOURCE_ROOT; };
+		8DD783F5225E666500947136 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		B5136C33A2F8FAE804B42564 /* libPods-ZZDigidentity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZDigidentity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1C2D42B8CDE580944FF8A /* Pods-ZZDigidentity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentity.release.xcconfig"; path = "Target Support Files/Pods-ZZDigidentity/Pods-ZZDigidentity.release.xcconfig"; sourceTree = "<group>"; };
 		CABD95CEDF7D3BFABECB788C /* Pods-ZZDigidentityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZDigidentityTests.debug.xcconfig"; path = "Target Support Files/Pods-ZZDigidentityTests/Pods-ZZDigidentityTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				8D844444225A04B100BEA6D1 /* Resources */,
 				8D1B84AC2258AD5300B34569 /* LaunchScreen.storyboard */,
 				8D1B84AF2258AD5300B34569 /* Info.plist */,
+				8DD783F5225E666500947136 /* README.md */,
 			);
 			path = ZZDigidentity;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			files = (
 				8D1B84AE2258AD5300B34569 /* LaunchScreen.storyboard in Resources */,
 				8D1B84AB2258AD5300B34569 /* Assets.xcassets in Resources */,
+				8DD783F6225E666500947136 /* README.md in Resources */,
 				8D84444D225A129900BEA6D1 /* certificate.cer in Resources */,
 				8DA8CA4B225A7C2B004DF2A5 /* CatalogueScreenViewController.storyboard in Resources */,
 			);
