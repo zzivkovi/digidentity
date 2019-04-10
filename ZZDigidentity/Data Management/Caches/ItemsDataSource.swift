@@ -109,7 +109,7 @@ extension ItemsDataSource {
     private func handleItems(_ items: [APIItem]) {
         // If there are items, sort and replace current list
         if !items.isEmpty {
-            self.items = items.sorted(by: { (i1, i2) -> Bool in i1.id > i2.id })
+            self.items = items
             self.itemsCache.cacheItems(self.items)
         }
         // Notify delegate about finished data load

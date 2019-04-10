@@ -14,7 +14,7 @@ struct RequestParameters {
     struct Items {
         static let itemsPath = "items"
         static let newerThanParameterName = "since_id"
-        static let olderThanParameterName = "maxId"
+        static let olderThanParameterName = "max_id"
     }
 }
 
